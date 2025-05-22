@@ -1,0 +1,23 @@
+{
+  "name": "petshop",
+  "version": "1.0.0",
+  "description": "PFI Backend 1° Entrega. Caso 3. Equipo Pink Code. Oficina 3. Integrantes: GINART Nadia, MATAYOSHI Yamila Yoshiko, VIZGARRA Bárbara Lorena.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pug": "^3.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
+    "globals": "^16.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
