@@ -1,0 +1,89 @@
+doctype html
+html
+  head
+    title Turnos | Huellitas Felices
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/styles.css") 
+    script.
+      function actualizarServicios() {
+        const categoria = document.querySelector('input[name="categoria"]:checked')?.value;
+        const veterinaria = [
+          'control',
+          'vacunación',
+          'infectología',
+          'primer consulta',
+          'consulta general',
+          'otro'
+        ];
+        const peluqueria = [
+          'corte y baño completo',
+          'corte de raza',
+          'corte de uñas',
+          'limpieza oídos',
+          'otro'
+        ];
+
+        const combo = document.getElementById('servicio');
+        combo.innerHTML = '';
+
+        const opciones = categoria === 'veterinaria' ? veterinaria : peluqueria;
+
+        opciones.forEach(op => {
+          const option = document.createElement('option');
+          option.value = op;
+          option.textContent = op;
+          combo.appendChild(option);
+        });
+      }
+
+  body
+    h1 Solicitá tu turno
+
+    if mensaje
+      p(style="color: green;")= mensaje
+
+    form(action="/turnos/nuevo", method="POST")
+      fieldset
+        legend Categoría
+        label
+          input(type="radio", name="categoria", value="veterinaria", onchange="actualizarServicios()")
+          | Veterinaria
+        label
+          input(type="radio", name="categoria", value="peluquería", onchange="actualizarServicios()")
+          | Peluquería
+
+      label(for="servicio") Servicio:
+      select(name="servicio", id="servicio")
+
+      label(for="dia") Día:
+      input(type="date", name="dia", required)
+
+      label(for="hora") Hora:
+      select(name="hora", required)
+        option(value="9") 9:00
+        option(value="9.30") 9:30
+        option(value="10") 10:00
+        option(value="10.30") 10:30
+        option(value="11") 11:00
+        option(value="11.30") 11:30
+        option(value="12") 12:00
+        option(value="12.30") 12:30
+        option(value="13") 13:00
+        option(value="13.30") 13:30
+        option(value="14") 14:00
+        option(value="14.30") 14:30
+        option(value="15") 15:00
+        option(value="15.30") 15:30
+        option(value="16") 16:00
+
+      label(for="nombre") Nombre Cliente:
+      input(type="text", name="nombre", required)
+
+      label(for="email") E-mail:
+      input(type="email", name="email", required)
+
+      label(for="telefono") Teléfono:
+      input(type="tel", name="telefono", required)
+
+      button(type="submit") Solicitar turno
