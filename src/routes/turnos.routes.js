@@ -22,30 +22,52 @@ async function guardarTurnos(turnos) {
 
 // GET para mostrar el formulario
 router.get('/nuevo', (req, res) => {
-  res.render('turnos', { mensaje: null });
+  const mensaje = req.query.mensaje || '';
+  res.render('turnos', { mensaje });
+});
+
+// GET para obtener todos los turnos (respuesta JSON)
+router.get('/api/turnos', async (req, res) => {
+  try {
+    const turnos = await leerTurnos();
+    res.json(turnos);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al leer los turnos' });
+  }
 });
 
 // POST para recibir y guardar el turno
 router.post('/nuevo', async (req, res) => {
   const { categoria, servicio, dia, hora, nombre, email, telefono } = req.body;
+  const esJSON = req.is('application/json');
 
+  // Validación de campos obligatorios
   if (!categoria || !servicio || !dia || !hora || !nombre || !email || !telefono) {
-    return res.render('turnos', { mensaje: 'Por favor, completá todos los campos.' });
+    const errorMsg = 'Por favor, completá todos los campos.';
+    return esJSON
+      ? res.status(400).json({ error: errorMsg })
+      : res.render('turnos', { mensaje: errorMsg });
   }
 
   const turnos = await leerTurnos();
 
-  // Chequeamos que no haya turno para la misma fecha y hora
+  // Verificamos si ya hay un turno en ese día y hora
   const turnoExistente = turnos.find(t => t.dia === dia && t.hora === hora);
   if (turnoExistente) {
-    return res.render('turnos', { mensaje: 'Lo lamentamos, este turno no está disponible.' });
+    const errorMsg = 'Lo lamentamos, este turno no está disponible.';
+    return esJSON
+      ? res.status(400).json({ error: errorMsg })
+      : res.render('turnos', { mensaje: errorMsg });
   }
 
-  // Guardamos nuevo turno
+  // Guardamos el nuevo turno
   turnos.push({ categoria, servicio, dia, hora, nombre, email, telefono });
   await guardarTurnos(turnos);
 
-  res.render('turnos', { mensaje: 'El turno fue registrado con éxito' });
+  const successMsg = 'El turno fue registrado con éxito';
+  return esJSON
+    ? res.status(201).json({ mensaje: successMsg })
+    : res.render('turnos', { mensaje: successMsg });
 });
 
 module.exports = router;

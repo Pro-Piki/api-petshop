@@ -14,6 +14,8 @@ app.use(express.json()); // para APIs JSON
 // Rutas
 const turnosRoutes = require('./src/routes/turnos.routes');
 app.use('/turnos', turnosRoutes);
+const mascotasAdopcionRoutes = require('./src/routes/mascotasAdopcion.routes');
+app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
 
 // Servidor
 const PORT = process.env.PORT || 3000;

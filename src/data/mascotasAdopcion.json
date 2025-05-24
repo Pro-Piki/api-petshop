@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "tipo": "gato",
+    "zona": "CABA",
+    "raza": "Mestizo",
+    "tamano": "Mediano",
+    "nombre": "Mishi"
+  },
+  {
+    "id": 2,
+    "tipo": "perro",
+    "zona": "Provincia de Buenos Aires",
+    "raza": "Caniche",
+    "tamano": "Pequeño",
+    "nombre": "Firulais"
+  }
+]

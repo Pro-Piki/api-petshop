@@ -8,6 +8,7 @@ html
     script.
       function actualizarServicios() {
         const categoria = document.querySelector('input[name="categoria"]:checked')?.value;
+
         const veterinaria = [
           'control',
           'vacunación',
@@ -16,38 +17,51 @@ html
           'consulta general',
           'otro'
         ];
+
         const peluqueria = [
-          'corte y baño completo',
-          'corte de raza',
-          'corte de uñas',
-          'limpieza oídos',
-          'otro'
+         'corte y baño completo',
+         'corte de raza',
+         'corte de uñas',
+         'limpieza oídos',
+         'otro'
         ];
 
         const combo = document.getElementById('servicio');
-        combo.innerHTML = '';
 
-        const opciones = categoria === 'veterinaria' ? veterinaria : peluqueria;
+        // Solo actualizamos el combo si se elige "peluquería"
+        if (categoria === 'peluquería') {
+          combo.innerHTML = '';
+          peluqueria.forEach(op => {
+            const option = document.createElement('option');
+            option.value = op;
+            option.textContent = op;
+            combo.appendChild(option);
+            });
+        }
 
-        opciones.forEach(op => {
-          const option = document.createElement('option');
-          option.value = op;
-          option.textContent = op;
-          combo.appendChild(option);
-        });
+        // Si se vuelve a seleccionar veterinaria, volvemos a cargar
+        if (categoria === 'veterinaria') {
+          combo.innerHTML = '';
+          veterinaria.forEach(op => {
+           const option = document.createElement('option');
+           option.value = op;
+           option.textContent = op;
+           combo.appendChild(option);
+           });
+        }
       }
 
   body
     h1 Solicitá tu turno
 
-    if mensaje
+    if mensaje && mensaje.length > 0 
       p(style="color: green;")= mensaje
 
     form(action="/turnos/nuevo", method="POST")
       fieldset
         legend Categoría
         label
-          input(type="radio", name="categoria", value="veterinaria", onchange="actualizarServicios()")
+          input(type="radio", name="categoria", value="veterinaria", onchange="actualizarServicios()", checked)
           | Veterinaria
         label
           input(type="radio", name="categoria", value="peluquería", onchange="actualizarServicios()")
@@ -55,6 +69,12 @@ html
 
       label(for="servicio") Servicio:
       select(name="servicio", id="servicio")
+        option(value="control" selected) control
+        option(value="vacunación") vacunación
+        option(value="infectología") infectología
+        option(value="primer consulta") primer consulta
+        option(value="consulta general") consulta general
+        option(value="otro") otro
 
       label(for="dia") Día:
       input(type="date", name="dia", required)

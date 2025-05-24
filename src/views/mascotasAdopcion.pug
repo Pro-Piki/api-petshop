@@ -1,0 +1,62 @@
+extends layout
+
+block content
+  h1 Mascotas en adopción
+  h3(style="margin-bottom: 20px") Buscá al nuevo miembro de tu familia
+
+  form(action="/mascotasAdopcion/busqueda" method="POST")
+    label(style="display: block; margin-top: 20px") Tipo:
+    div(style="display: flex; gap: 15px; margin-bottom: 10px; margin-top: 10px;")
+      label
+        input(type="radio" name="tipo" value="gato" checked)
+        |  Gato
+      label
+        input(type="radio" name="tipo" value="perro")
+        |  Perro
+
+    label Zona:
+    select(name="zona")
+      option(value="Todas") Todas
+      option(value="CABA") CABA
+      option(value="Provincia de Buenos Aires") Provincia de Buenos Aires
+
+    label Raza:
+    select(name="raza")
+      option(value="Todas") Todas
+      option Pitbull
+      option Pastor alemán
+      option Cocker
+      option Pug
+      option Caniche
+      option Mestizo
+
+    label Tamaño:
+    select(name="tamano")
+      option(value="Todos") Todos
+      option Pequeño
+      option Mediano
+      option Grande
+
+    button(type="submit") Buscar
+
+  if resultados !== null
+    if resultados.length === 0
+      script.
+        alert("No se encontraron resultados para esta búsqueda.")
+    else
+      table(style="margin-top: 30px")
+        thead
+          tr
+            th Nombre
+            th Tipo
+            th Zona
+            th Raza
+            th Tamaño
+        tbody
+          each m in resultados
+            tr
+              td= m.nombre
+              td= m.tipo
+              td= m.zona
+              td= m.raza
+              td= m.tamano
