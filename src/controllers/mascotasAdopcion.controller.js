@@ -9,10 +9,10 @@ async function buscarMascotasAdopcion(req, res) {
   const mascotas = await leerMascotasAdopcion();
 
   const resultados = mascotas.filter(m =>
-    (tipo === 'todas' || m.tipo === tipo) &&
-    (zona === 'Todas' || m.zona === zona) &&
-    (raza === 'Todas' || m.raza === raza) &&
-    (tamano === 'Todos' || m.tamano === tamano)
+    (!tipo || tipo.toLowerCase() === 'todas' || m.tipo.toLowerCase() === tipo.toLowerCase()) &&
+    (!zona || zona === 'Todas' || m.zona === zona) &&
+    (!raza || raza === 'Todas' || m.raza === raza) &&
+    (!tamano || tamano === 'Todos' || m.tamano === tamano)
   );
 
   if (req.headers['content-type'] === 'application/json') {
