@@ -6,19 +6,15 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
-// configuración de Pug
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'src/views'));
-
 // Middlewares
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// configuración de Express
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, 'public')));
+const logger = require('./src/middleware/logger');
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 app.use(logger);
 
 // Rutas Matayoshi
@@ -36,22 +32,11 @@ const mascotasAdopcionRoutes = require('./src/routes/mascotasAdopcion.routes');
 app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
 
 
-// importación de rutas
+// Rutas Vizgarra
 const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
 const productApiRoutes = require('./src/routes/productApiRoutes');
 
-// middlewares
-const logger = require('./src/middleware/logger');
-
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'));
-
-
-
-
-
-// rutas
 app.use('/products', productRoutes);
 app.use('/api/products', productApiRoutes); 
 app.use('/stock', stockRoutes);
