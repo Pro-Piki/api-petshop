@@ -1,12 +1,14 @@
 // src\services\authService.js
 const fs = require('fs').promises;
 const path = require('path');
+const User = require('../models/class/user');
 
 const usersPath = path.join(__dirname, '../data/users.json');
 
 async function getAllUsers() {
   const data = await fs.readFile(usersPath, 'utf-8');
-  return data.trim() ? JSON.parse(data) : [];
+  const parsed = data.trim() ? JSON.parse(data) : [];
+  return parsed.map(u => new User(u.id, u.username, u.password, u.role));
 }
 
 async function findUserByCredentials(username, password) {

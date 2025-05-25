@@ -22,5 +22,11 @@
     "type": "perro",
     "ownerDni": "123",
     "ownerName": "paola"
+  },
+  {
+    "name": "coco",
+    "type": "perro",
+    "ownerDni": "123",
+    "ownerName": "paola"
   }
 ]

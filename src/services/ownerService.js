@@ -8,11 +8,13 @@ const ownersPath = path.join(__dirname, '../data/owners.json');
 async function getAllOwners() {
   try {
     const data = await fs.readFile(ownersPath, 'utf-8');
-    return JSON.parse(data);
+    const parsed = data.trim() ? JSON.parse(data) : [];
+    return parsed.map(o => new Owner(o.id, o.dni, o.name, o.phone, o.address));
   } catch (err) {
     return [];
   }
 }
+
 
 async function saveAllOwners(owners) {
   await fs.writeFile(ownersPath, JSON.stringify(owners, null, 2));

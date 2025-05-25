@@ -8,11 +8,13 @@ const petsPath = path.join(__dirname, '../data/pets.json');
 async function getAllPets() {
   try {
     const data = await fs.readFile(petsPath, 'utf-8');
-    return JSON.parse(data);
+    const rawPets = JSON.parse(data);
+    return rawPets.map(p => new Pet(p.name, p.type, p.ownerDni, p.ownerName));
   } catch (err) {
     return [];
   }
 }
+
 
 async function saveAllPets(pets) {
   await fs.writeFile(petsPath, JSON.stringify(pets, null, 2));
