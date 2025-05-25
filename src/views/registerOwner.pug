@@ -1,0 +1,69 @@
+doctype html
+html
+  head
+    title Registro de Dueño
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style.
+      table {
+        width: 70%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+  body
+    h1 Registro de Dueño
+    br
+    a(href="/pets/register", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Registrar mascota
+    
+    if successMessage
+      p(style="color: green") #{successMessage}
+
+    if errorMessage
+      p(style="color: red") #{errorMessage}
+
+    form(action="/owners/register", method="POST")
+      div
+        br
+        label(for="dni") DNI:
+        input(type="text", name="dni", required)
+
+      div
+        label(for="name") Nombre:
+        input(type="text", name="name", required)
+
+      div
+        label(for="phone") Teléfono:
+        input(type="text", name="phone", required)
+
+      div
+        label(for="address") Dirección:
+        input(type="text", name="address", required)
+
+      button(type="submit") Registrar Dueño
+
+    if owners && owners.length
+      h1 Dueños registrados
+      table
+        thead
+          tr
+            th ID
+            th DNI
+            th Nombre
+            th Teléfono
+            th Dirección
+        tbody
+          each owner in owners
+            tr
+              td= owner.id
+              td= owner.dni
+              td= owner.name
+              td= owner.phone
+              td= owner.address       
+    a(href="/login", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Cerrar sesión          

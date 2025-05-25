@@ -1,0 +1,26 @@
+[
+  {
+    "name": "paola",
+    "type": "gato",
+    "ownerDni": "123",
+    "ownerName": "paola"
+  },
+  {
+    "name": "rex",
+    "type": "perro",
+    "ownerDni": "123",
+    "ownerName": "paola"
+  },
+  {
+    "name": "coco",
+    "type": "gato",
+    "ownerDni": "123",
+    "ownerName": "paola"
+  },
+  {
+    "name": "ray charls",
+    "type": "perro",
+    "ownerDni": "123",
+    "ownerName": "paola"
+  }
+]

@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    title Registro de Mascota
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style.
+      table {
+        width: 70%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+  body
+    h1 Registro de Mascota
+    br
+    a(href="/owners/register", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Registrar dueño
+    if successMessage
+      p(style="color: green") #{successMessage}
+
+    if errorMessage
+      p(style="color: red") #{errorMessage}
+
+    form(action="/pets/register", method="POST")
+      div
+        br
+        label(for="name") Nombre de la mascota:
+        input(type="text", name="name", required)
+
+      div
+        label(for="type") Tipo de mascota:
+        input(type="text", name="type", required)
+
+      div
+        label(for="ownerDni") Documento del dueño:
+        input(type="text", name="ownerDni", required)
+
+      div
+        label(for="ownerName") Nombre del dueño:
+        input(type="text", name="ownerName", required)  
+
+      button(type="submit") Registrar mascota
+
+    if pets && pets.length
+      h2 Mascotas Registradas
+      table
+        thead
+          tr
+            th Nombre de la mascota
+            th Tipo de mascota
+            th Documento del Dueño
+            th Nombre del Dueño
+        tbody
+          each pet in pets
+            tr
+              td= pet.name
+              td= pet.type
+              td= pet.ownerDni 
+              td= pet.ownerName 
+
+    a(href="/login", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Cerrar sesión                
