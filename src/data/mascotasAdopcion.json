@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "tipo": "Gato",
+    "zona": "CABA",
+    "raza": "Mestizo",
+    "tamano": "Mediano",
+    "nombre": "Mishi"
+  },
+  {
+    "id": 2,
+    "tipo": "Perro",
+    "zona": "Provincia de Buenos Aires",
+    "raza": "Caniche",
+    "tamano": "Pequeño",
+    "nombre": "Firulais"
+  },
+    {
+    "id": 3,
+    "tipo": "Perro",
+    "zona": "CABA",
+    "raza": "Pastor Alemán",
+    "tamano": "Grande",
+    "nombre": "Logan"
+  },
+    {
+    "id": 4,
+    "tipo": "Gato",
+    "zona": "Provincia de Buenos Aires",
+    "raza": "Siamés",
+    "tamano": "Mediano",
+    "nombre": "Bigotes"
+  }
+]
