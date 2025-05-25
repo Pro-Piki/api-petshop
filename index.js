@@ -39,6 +39,7 @@ app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
 // importación de rutas
 const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
+const productApiRoutes = require('./src/routes/productApiRoutes');
 
 // middlewares
 const logger = require('./src/middleware/logger');
@@ -52,6 +53,7 @@ app.use(methodOverride('_method'));
 
 // rutas
 app.use('/products', productRoutes);
+app.use('/api/products', productApiRoutes); 
 app.use('/stock', stockRoutes);
 
 // ruta principal

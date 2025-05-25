@@ -20,5 +20,38 @@
     "estado": "activo",
     "createdAt": "2025-05-25T21:15:07.223Z",
     "updatedAt": "2025-05-25T21:15:07.223Z"
+  },
+  {
+    "id": 1748208576622,
+    "nombre": "Alimento balanceado Razas Pequeñas",
+    "categoria": "Alimento",
+    "tipoMascota": "Perro",
+    "precio": "15000",
+    "stock": "15",
+    "estado": "activo",
+    "createdAt": "2025-05-25T21:29:36.622Z",
+    "updatedAt": "2025-05-25T21:29:36.622Z"
+  },
+  {
+    "id": 1748209842690,
+    "nombre": "Orejas",
+    "categoria": "Golosina",
+    "tipoMascota": "Perro",
+    "precio": 100,
+    "stock": 5,
+    "estado": "activo",
+    "createdAt": "2025-05-25T21:50:42.690Z",
+    "updatedAt": "2025-05-25T21:50:42.690Z"
+  },
+  {
+    "id": 1748209921847,
+    "nombre": "Snack pescaditos",
+    "categoria": "Golosina",
+    "tipoMascota": "Gato",
+    "precio": "250",
+    "stock": "10",
+    "estado": "activo",
+    "createdAt": "2025-05-25T21:52:01.847Z",
+    "updatedAt": "2025-05-25T21:52:01.847Z"
   }
 ]
