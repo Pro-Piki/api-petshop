@@ -1,0 +1,59 @@
+extends ../layouts/main
+
+block content
+  h1= title
+  
+  if errorMessage
+    .alert.alert-danger= errorMessage
+  
+  form(method="POST")
+    .mb-3
+      label.form-label(for="idProducto") Producto
+      select.form-select(name="idProducto" required)
+        option(value="" disabled selected) Seleccione un producto
+        each product in products
+          option(value=product.id selected=(formData && formData.idProducto == product.id))= product.nombre
+    
+    .mb-3
+      label.form-label(for="cantidad") Cantidad
+      input.form-control(
+        type="number" 
+        name="cantidad" 
+        required 
+        min="1"
+        value=formData ? formData.cantidad : ''
+      )
+    
+    if movementType === 'ingreso'
+      .mb-3
+        label.form-label(for="proveedor") Proveedor
+        input.form-control(
+          type="text" 
+          name="proveedor" 
+          required
+          value=formData ? formData.proveedor : ''
+        )
+      
+      .mb-3
+        label.form-label(for="costoUnitario") Costo Unitario
+        input.form-control(
+          type="number" 
+          name="costoUnitario" 
+          required 
+          step="0.01" 
+          min="0"
+          value=formData ? formData.costoUnitario : ''
+        )
+    else
+      .mb-3
+        label.form-label(for="motivo") Motivo
+        input.form-control(
+          type="text" 
+          name="motivo" 
+          required
+          value=formData ? formData.motivo : ''
+        )
+    
+    .mb-3
+      button.btn.btn-primary(type="submit") Registrar #{movementType === 'ingreso' ? 'Ingreso' : 'Salida'}
+      a.btn.btn-secondary.ms-2(href="/stock") Cancelar

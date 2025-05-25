@@ -1,0 +1,48 @@
+[
+  {
+    "tipo": "ingreso",
+    "idProducto": 1,
+    "cantidad": 20,
+    "proveedor": "Distribuidora CanCat",
+    "costoUnitario": 9000,
+    "id": 1,
+    "fecha": "2025-05-22T02:42:28.701Z"
+  },
+  {
+    "tipo": "ingreso",
+    "idProducto": 1,
+    "cantidad": 10,
+    "proveedor": "Distribuidora CanCat",
+    "costoUnitario": 5000,
+    "id": 2,
+    "fecha": "2025-05-22T02:42:44.516Z"
+  },
+  {
+    "tipo": "salida",
+    "idProducto": 1,
+    "cantidad": 5,
+    "motivo": "Venta directa",
+    "id": 3,
+    "fecha": "2025-05-22T02:45:01.361Z"
+  },
+  {
+    "tipo": "salida",
+    "idProducto": 1,
+    "cantidad": 1,
+    "proveedor": null,
+    "costoUnitario": null,
+    "motivo": "Venta directa",
+    "fecha": "2025-05-25T00:11:34.954Z",
+    "id": 4
+  },
+  {
+    "tipo": "ingreso",
+    "idProducto": 1,
+    "cantidad": 10,
+    "proveedor": "Distribuidora CanCat",
+    "costoUnitario": 3000,
+    "motivo": null,
+    "fecha": "2025-05-25T00:12:31.864Z",
+    "id": 5
+  }
+]

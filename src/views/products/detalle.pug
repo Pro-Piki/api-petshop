@@ -1,0 +1,26 @@
+extends ../layouts/main
+
+block content
+  h1.mb-4 Detalle del Producto
+  
+  .card
+    .card-body
+      h5.card-title= product.nombre
+      p.card-text
+        strong Categoría: 
+        | #{product.categoria}
+      p.card-text
+        strong Tipo de Mascota: 
+        | #{product.tipoMascota}
+      p.card-text
+        strong Precio: 
+        | $#{product.precio}
+      p.card-text
+        strong Stock: 
+        | #{product.stock}
+    
+    .card-footer
+      a.btn.btn-primary.me-2(href=`/products/${product.id}/editar`) Editar
+      form.d-inline(method="POST", action=`/products/${product.id}?_method=DELETE`)
+        button.btn.btn-danger(type="submit") Eliminar
+      a.btn.btn-secondary.ms-2(href="/products") Volver

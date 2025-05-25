@@ -1,0 +1,31 @@
+extends ../layouts/main
+
+block content
+  h1.mb-4= title
+
+  if errorMessage
+    .alert.alert-danger= errorMessage
+
+  form(method="POST", action=`/products/${product.id}?_method=PUT`)
+    .mb-3
+      label.form-label(for="nombre") Nombre
+      input.form-control(type="text", id="nombre", name="nombre", value=product.nombre, required)
+    
+    .mb-3
+      label.form-label(for="categoria") Categoría
+      input.form-control(type="text", id="categoria", name="categoria", value=product.categoria, required)
+    
+    .mb-3
+      label.form-label(for="tipoMascota") Tipo de Mascota
+      input.form-control(type="text", id="tipoMascota", name="tipoMascota", value=product.tipoMascota, required)
+    
+    .mb-3
+      label.form-label(for="precio") Precio
+      input.form-control(type="number", id="precio", name="precio", step="0.01", value=product.precio, required)
+    
+    .mb-3
+      label.form-label(for="stock") Stock
+      input.form-control(type="number", id="stock", name="stock", value=product.stock, required)
+    
+    button.btn.btn-primary.me-2(type="submit") Editar
+    a.btn.btn-secondary(href="/products") Cancelar
