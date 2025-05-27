@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1747979882078",
+    "dni": "123",
+    "name": "paola",
+    "phone": "112233",
+    "address": "calle 145"
+  },
+  {
+    "id": "1748154784855",
+    "dni": "223",
+    "name": "carlos",
+    "phone": "444",
+    "address": "calle 71"
+  }
+]
