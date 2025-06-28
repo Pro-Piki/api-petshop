@@ -3,14 +3,24 @@ html
     title Panel
   body
     h1 Bienvenido #{user.username} (Rol: #{user.role})
-     ul
+
+    ul
+      if user.role === 'Admin' || user.role === 'Empleado'
+        li
+          a(href="/owners/register") Registrar dueño
+        li
+          a(href="/pets/register") Registrar mascota
+        li
+          a(href="/") Productos y Stock
+        li
+          a(href="/panel/register") Crear nuevo usuario  
+
+      if user.role === 'Admin' || user.role === 'Empleado' || user.role === 'Profesional' || user.role === 'Cliente'
+        li
+          a(href="/turnos/nuevo") Solicitud de turno
+
+      if user.role === 'Admin' || user.role === 'Empleado' || user.role === 'Cliente'
+        li
+          a(href="/mascotasAdopcion/busqueda") Mascotas en adopción
       li
-        a(href="/owners/register") Registrar dueño
-      li
-        a(href="/pets/register") Registrar mascota
-      li
-        a(href="/turnos/nuevo") Solicitud de turno
-      li
-        a(href="/mascotasAdopcion/busqueda") Mascotas en adopción  
-      li
-        a(href="/") Productos y Stock  
+        a(href="/logout") Cerrar sesión

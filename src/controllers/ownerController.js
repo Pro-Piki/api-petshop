@@ -1,6 +1,5 @@
 // src/controllers/ownerController.js
-const { findOwnerByDni, getAllOwners, saveAllOwners } = require('../services/ownerService');
-const Owner = require('../models/class/owner');
+const { findOwnerByDni, getAllOwners, registerOwnerIfNotExists } = require('../services/ownerService');
 
 // Lógica reutilizable para registrar dueños
 async function handleOwnerCreation(dni, name, phone, address) {
@@ -9,13 +8,8 @@ async function handleOwnerCreation(dni, name, phone, address) {
     return { error: 'Ya existe un dueño con ese DNI.' };
   }
 
-  const id = Date.now().toString();
-  const newOwner = new Owner(id, dni, name, phone, address);
-  const owners = await getAllOwners();
-  owners.push(newOwner);
-  await saveAllOwners(owners);
-
-  return { owner: newOwner };
+  const result = await registerOwnerIfNotExists(dni, name, phone, address);
+  return { owner: result.owner };
 }
 
 // Usado por el formulario para agregar nuevo dueño
@@ -31,13 +25,7 @@ async function registerOwner(req, res) {
     });
   }
 
-  // res.render('registerOwner', {
-  //   successMessage: 'Dueño registrado exitosamente.',
-  //   owners
-  // });
-  
   res.redirect('/owners/register');
-
 }
 
 module.exports = {

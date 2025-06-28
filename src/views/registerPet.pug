@@ -52,6 +52,7 @@ html
       table
         thead
           tr
+            th ID
             th Nombre de la mascota
             th Tipo de mascota
             th Documento del Dueño
@@ -59,6 +60,7 @@ html
         tbody
           each pet in pets
             tr
+              td= pet._id
               td= pet.name
               td= pet.type
               td= pet.ownerDni 

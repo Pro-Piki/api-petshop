@@ -3,6 +3,13 @@ const express = require('express');
 const router = express.Router();
 const { registerOwner, handleOwnerCreation } = require('../controllers/ownerController');
 const { getAllOwners } = require('../services/ownerService');
+const { authenticateToken } = require('../middleware/authMiddleware');
+
+router.get('/owners/json', authenticateToken, async (req, res) => {
+  // Solo usuarios con token válido llegan acá
+  const owners = await getAllOwners();
+  res.json(owners);
+});
 
 // Formulario HTML
 router.get('/register', async (req, res) => {

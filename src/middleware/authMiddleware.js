@@ -1,10 +1,26 @@
-//src\middleware\authMiddleware.js
-const { getCurrentUser } = require('../controllers/authController');
+// src/middleware/authMiddleware.js
+const jwt = require('jsonwebtoken');
+const { secret } = require('../config/jwt');
 
-function checkRole(role) {
+function authenticateToken(req, res, next) {
+  const token = req.cookies?.token;
+
+  if (!token) {
+    return res.status(401).send('No autenticado');
+  }
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).send('Token inválido o expirado');
+  }
+}
+
+function checkRole(...roles) {
   return (req, res, next) => {
-    const user = getCurrentUser(req); 
-    if (user && user.role === role) {
+    if (req.user && roles.includes(req.user.role)) {
       next();
     } else {
       res.status(403).send('Acceso denegado');
@@ -13,4 +29,4 @@ function checkRole(role) {
 }
 
 
-module.exports = { checkRole };  
+module.exports = { authenticateToken, checkRole };

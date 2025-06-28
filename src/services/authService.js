@@ -1,22 +1,33 @@
-// src\services\authService.js
-const fs = require('fs').promises;
-const path = require('path');
-const User = require('../models/class/user');
-
-const usersPath = path.join(__dirname, '../data/users.json');
+// src/services/authService.js
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
 async function getAllUsers() {
-  const data = await fs.readFile(usersPath, 'utf-8');
-  const parsed = data.trim() ? JSON.parse(data) : [];
-  return parsed.map(u => new User(u.id, u.username, u.password, u.role));
+  return await User.find();
 }
 
 async function findUserByCredentials(username, password) {
-  const users = await getAllUsers();
-  return users.find(u => u.username === username && u.password === password);
+  const user = await User.findOne({ username });
+  if (!user) return null;
+
+  const match = await bcrypt.compare(password, user.password);
+  return match ? user : null;
+}
+
+async function createUser(username, password, role) {
+  const existing = await User.findOne({ username });
+  if (existing) {
+    throw new Error('El usuario ya existe');
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = new User({ username, password: hashedPassword, role });
+  await user.save();
+  return user;
 }
 
 module.exports = {
   getAllUsers,
-  findUserByCredentials
+  findUserByCredentials,
+  createUser
 };
