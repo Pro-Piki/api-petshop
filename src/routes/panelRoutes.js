@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 
 // Ruta para mostrar el panel 
@@ -7,4 +7,4 @@ router.get('/', (req, res) => {
    res.redirect('/panel');
 });
 
-module.exports = router;
+module.exports = router;*/
