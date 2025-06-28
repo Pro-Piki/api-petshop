@@ -1,10 +1,28 @@
+doctype html
 html
   head
-    title Login
+    title Login - Huellitas Felices
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/login.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
   body
-    h1 Petshop Huellitas Felices
+    .login-container
+      .login-image
+        img(src="/images/hero-login.png", alt="Imagen login")
 
-    form(action="/login", method="POST")
-      input(type="text", name="username", placeholder="Usuario", required)
-      input(type="password", name="password", placeholder="Contraseña", required)
-      button(type="submit") Iniciar sesión
+      .login-form
+        img.logo(src="/images/huellita.png", alt="Logo")
+        
+        if errorMessage
+          p.error #{errorMessage}
+
+        form(action="/login", method="POST")
+          label(for="username") Usuario:
+          input(type="text", name="username", required)
+
+          label(for="password") Contraseña:
+          input(type="password", name="password", required)
+
+          button.button(type="submit") Iniciar sesión

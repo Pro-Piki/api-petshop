@@ -1,26 +1,52 @@
 html
   head
     title Panel
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+    link(rel="stylesheet", href="/styles/panel.css")  
+    link(rel="stylesheet", href="/styles/main.css")  
+
   body
-    h1 Bienvenido #{user.username} (Rol: #{user.role})
+    .navbar
 
-    ul
-      if user.role === 'Admin' || user.role === 'Empleado'
-        li
-          a(href="/owners/register") Registrar dueño
-        li
-          a(href="/pets/register") Registrar mascota
-        li
-          a(href="/") Productos y Stock
-        li
-          a(href="/panel/register") Crear nuevo usuario  
+      img(src="/images/logo.png", alt="Logo")
+      a.logout-icon(href="#", title="Cerrar sesión")
+        i(class="fas fa-door-open")
 
-      if user.role === 'Admin' || user.role === 'Empleado' || user.role === 'Profesional' || user.role === 'Cliente'
-        li
-          a(href="/turnos/nuevo") Solicitud de turno
-
-      if user.role === 'Admin' || user.role === 'Empleado' || user.role === 'Cliente'
-        li
-          a(href="/mascotasAdopcion/busqueda") Mascotas en adopción
-      li
-        a(href="/logout") Cerrar sesión
+    .panel-container
+      h1 Bienvenido #{user.username} (Rol: #{user.role})
+      .cards
+        .card.card1
+          i.fas.fa-user-plus
+          h2 Registro de Clientes
+          p Alta de un nuevo responsable del animal.
+          a(href="/owners/register") Ir al formulario
+        .card.card2
+          i.fas.fa-dog
+          h2 Registro de mascotas
+          p Cargar los datos de una nueva mascota.
+          a(href="/pets/register") Ir al formulario
+        .card.card3
+          i.fas.fa-calendar-check
+          h2 Solicitud de turno
+          p Agendar turno para atención veterinaria y/o peluquería.
+          a(href="/turnos/nuevo") Solicitar turno
+        .card.card4
+          i.fas.fa-calendar-day
+          h2 Ver agenda
+          p Visualizá todos los turnos asignados.
+          a(href="/agenda") Ver agenda
+        .card.card5
+          i.fas.fa-boxes
+          h2 Listado de productos
+          p Visualizá los productos y su disponibilidad.
+          a(href="/products") Ver productos
+        .card.card6
+          i.fas.fa-exchange-alt
+          h2 Movimientos de stock
+          p Consultá entradas y salidas de stock.
+          a(href="/stock") Ver movimientos
+        .card.card7
+          i.fas.fa-user-plus
+          h2 Registro de Usuarios
+          p Alta de nuevos usuarios con roles de acceso.
+          a(href="/owners/register") Ir al formulario
