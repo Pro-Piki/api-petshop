@@ -1,17 +1,32 @@
 html
   head
-    title Registro
+    title Registro usuario
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
   body
-    h1 Crear cuenta
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-    form(action="/panel/register", method="POST")
-      input(type="text", name="username", placeholder="Usuario", required)
-      input(type="password", name="password", placeholder="Contraseña", required)
-      select(name="role", required)
-        option(value="" disabled selected) Seleccionar rol
-        option(value="Admin") Admin
-        option(value="Empleado") Empleado
-        option(value="Profesional") Profesional
-        option(value="Cliente") Cliente
-      button(type="submit") Registrarse
-      a(href="/panel", style="display:block; margin-top:15px;") Volver al panel
+    .form-container
+      h1 Crear cuenta
+
+      form.registration-form(action="/panel/register", method="POST")
+        input.input-field(type="text", name="username", placeholder="Usuario", required)
+        input.input-field(type="password", name="password", placeholder="Contraseña", required)
+
+        select.input-field(name="role", required)
+          option(value="" disabled selected) Seleccionar rol
+          option(value="Admin") Admin
+          option(value="Empleado") Empleado
+          option(value="Profesional") Profesional
+          option(value="Cliente") Cliente
+
+        button.button(type="submit") Registrarse
+

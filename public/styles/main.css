@@ -294,3 +294,53 @@ h1 {
   text-align: center;
   font-weight: bold;
 }
+/*************** FORMULARIO DE REGISTRO DE USUARIO **************/
+
+.form-container {
+  width: 400px;
+  margin: 5rem auto;
+  background-color: #f9f9f9;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.form-container h1{
+    color:#000;
+    margin-bottom: 15px;
+}
+
+.form-container .button{
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-field {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.registration-form select {
+  background-color: white;
+}
+
+.link-secondary {
+  display: block;
+  margin-top: 2rem;
+  color: #bd59af;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link-secondary:hover {
+  text-decoration: underline;
+}
