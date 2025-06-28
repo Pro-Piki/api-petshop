@@ -87,6 +87,10 @@ body, html {
   color: white;
 }
 
+.buttons a.button{
+    margin-left: 15px;
+}
+
 /***************ENCABEZADOS***************/
 h1 {
   margin: 0;

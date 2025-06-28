@@ -1,32 +1,52 @@
-extends ../layouts/main
+doctype html
+html
+  head
+    title Movimientos de Stock
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-block content
-  h1= title
-  
-  .mb-4
-    a(href="/stock/ingreso" class="btn btn-success me-2") Registrar Ingreso
-    a(href="/stock/salida" class="btn btn-danger") Registrar Salida
-  
-  if movements.length > 0
-    table.table.table-striped
-      thead
-        tr
-          th Tipo
-          th Producto
-          th Cantidad
-          th Fecha
-          th Detalle
-      tbody
-        each movimiento in movements
-          tr
-            td= movimiento.tipo === 'ingreso' ? 'Ingreso' : 'Salida'
-            td= movimiento.idProducto
-            td= movimiento.cantidad
-            td= new Date(movimiento.fecha).toLocaleString()
-            td
-              if movimiento.tipo === 'ingreso'
-                | Proveedor: #{movimiento.proveedor}, Costo: #{movimiento.costoUnitario}
-              else
-                | Motivo: #{movimiento.motivo}
-  else
-    .alert.alert-info No hay movimientos registrados
+    .container
+      .header-flex
+        h1 Movimientos de Stock
+        .buttons
+          a.button(href="/stock/ingreso") Registrar Ingreso
+          a.button.eliminar(href="/stock/salida") Registrar Salida
+
+      if successMessage
+        p.success #{successMessage}
+      if errorMessage
+        p.error #{errorMessage}
+
+      if movements.length > 0
+        table.custom-table
+          thead
+            tr
+              th Tipo
+              th Producto
+              th Cantidad
+              th Fecha
+              th Detalle
+          tbody
+            each movimiento in movements
+              tr
+                td= movimiento.tipo === 'ingreso' ? 'Ingreso' : 'Salida'
+                td= movimiento.idProducto
+                td= movimiento.cantidad
+                td= new Date(movimiento.fecha).toLocaleString()
+                td
+                  if movimiento.tipo === 'ingreso'
+                    | Proveedor: #{movimiento.proveedor}, Costo: #{movimiento.costoUnitario}
+                  else
+                    | Motivo: #{movimiento.motivo}
+      else
+        p.alert.alert-info No hay movimientos registrados

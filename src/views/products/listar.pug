@@ -1,29 +1,55 @@
-extends ../layouts/main
+doctype html
+html
+  head
+    title Productos
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-block content
-  h1.mb-4= title
-  
-  a.btn.btn-primary.mb-3(href="/products/crear") Nuevo Producto
-  
-  table.table.table-striped
-    thead
-      tr
-        th Nombre
-        th Categoría
-        th Tipo Mascota
-        th Precio
-        th Stock
-        th Acciones
-    tbody
-      each product in products
-        tr
-          td= product.nombre
-          td= product.categoria
-          td= product.tipoMascota
-          td= product.precio
-          td= product.stock
-          td
-            a.btn.btn-sm.btn-info.me-1(href=`/products/${product.id}`) Ver
-            a.btn.btn-sm.btn-warning.me-1(href=`/products/${product.id}/editar`) Editar
-            form.d-inline(method="POST", action=`/products/${product.id}?_method=DELETE`)
-              button.btn.btn-sm.btn-danger(type="submit") Eliminar
+    .container
+      .header-flex
+        h1= title
+        a.button(href="/products/crear") Nuevo Producto
+
+      if successMessage
+        p.success #{successMessage}
+      if errorMessage
+        p.error #{errorMessage}
+
+      if products && products.length > 0
+        table.custom-table
+          thead
+            tr
+              th Nombre
+              th Categoría
+              th Tipo Mascota
+              th Precio
+              th Stock
+              th Acciones
+          tbody
+            each product in products
+              tr
+                td= product.nombre
+                td= product.categoria
+                td= product.tipoMascota
+                td= product.precio
+                td= product.stock
+                td.actions
+                  a.icon-btn.ficha(href=`/products/${product.id}`, title="Ver")
+                    i.fas.fa-search
+                  a.icon-btn.editar(href=`/products/${product.id}/editar`, title="Editar")
+                    i.fas.fa-pen
+                  form(method="POST", action=`/products/${product.id}?_method=DELETE`, style="display:inline")
+                    button.icon-btn.eliminar(type="submit", title="Eliminar")
+                      i.fas.fa-trash
+      else
+        p.alert.alert-info No hay productos registrados

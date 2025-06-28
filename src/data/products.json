@@ -1,16 +1,5 @@
 [
   {
-    "id": 1748206938212,
-    "nombre": "Huesito de goma chico",
-    "categoria": "Juguete",
-    "tipoMascota": "Perro",
-    "precio": "1000",
-    "stock": "5",
-    "estado": "activo",
-    "createdAt": "2025-05-25T21:02:18.212Z",
-    "updatedAt": "2025-05-25T21:02:18.212Z"
-  },
-  {
     "id": 1748207707223,
     "nombre": "Ratoncito",
     "categoria": "Juguete",
