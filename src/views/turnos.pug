@@ -1,10 +1,12 @@
 doctype html
-html
+html(lang="es")
   head
-    title Turnos | Huellitas Felices
     meta(charset="UTF-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="/css/styles.css") 
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Turnos
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
     script.
       function actualizarServicios() {
         const categoria = document.querySelector('input[name="categoria"]:checked')?.value;
@@ -19,91 +21,103 @@ html
         ];
 
         const peluqueria = [
-         'corte y baño completo',
-         'corte de raza',
-         'corte de uñas',
-         'limpieza oídos',
-         'otro'
+          'corte y baño completo',
+          'corte de raza',
+          'corte de uñas',
+          'limpieza oídos',
+          'otro'
         ];
 
         const combo = document.getElementById('servicio');
+        combo.innerHTML = '';
 
-        // Solo actualizamos el combo si se elige "peluquería"
-        if (categoria === 'peluquería') {
-          combo.innerHTML = '';
-          peluqueria.forEach(op => {
-            const option = document.createElement('option');
-            option.value = op;
-            option.textContent = op;
-            combo.appendChild(option);
-            });
-        }
+        const opciones = categoria === 'peluquería' ? peluqueria : veterinaria;
 
-        // Si se vuelve a seleccionar veterinaria, volvemos a cargar
-        if (categoria === 'veterinaria') {
-          combo.innerHTML = '';
-          veterinaria.forEach(op => {
-           const option = document.createElement('option');
-           option.value = op;
-           option.textContent = op;
-           combo.appendChild(option);
-           });
-        }
+        opciones.forEach(op => {
+          const option = document.createElement('option');
+          option.value = op;
+          option.textContent = op;
+          combo.appendChild(option);
+        });
       }
-
   body
-    h1 Solicitá tu turno
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-    if mensaje && mensaje.length > 0 
-      p(style="color: green;")= mensaje
+    .container
+      h1 Solicitá tu turno
 
-    form(action="/turnos/nuevo", method="POST")
-      fieldset
-        legend Categoría
-        label
-          input(type="radio", name="categoria", value="veterinaria", onchange="actualizarServicios()", checked)
-          | Veterinaria
-        label
-          input(type="radio", name="categoria", value="peluquería", onchange="actualizarServicios()")
-          | Peluquería
+      // Mensaje de éxito o error (una sola vez)
+      if mensaje && mensaje.length > 0 
+        p.success= mensaje
+        script.
+          setTimeout(function () {
+            window.location.href = '/turnos/nuevo';
+          }, 3000);
 
-      label(for="servicio") Servicio:
-      select(name="servicio", id="servicio")
-        option(value="control" selected) control
-        option(value="vacunación") vacunación
-        option(value="infectología") infectología
-        option(value="primer consulta") primer consulta
-        option(value="consulta general") consulta general
-        option(value="otro") otro
+      form(action="/turnos/nuevo", method="POST")
+        .form-group.radio-group
+          legend Categoría
+          .radio-group
+            .radio-options
+              label
+                input(type="radio", name="categoria", value="veterinaria", onchange="actualizarServicios()", checked)
+                i.fas.fa-stethoscope.icon
+                | Veterinaria
+              label
+                input(type="radio", name="categoria", value="peluquería", onchange="actualizarServicios()")
+                i.fas.fa-scissors.icon
+                | Peluquería
 
-      label(for="dia") Día:
-      input(type="date", name="dia", required)
+        .form-group
+          label(for="servicio") Servicio:
+          select(name="servicio", id="servicio")
+            option(value="control", selected) control
+            option(value="vacunación") vacunación
+            option(value="infectología") infectología
+            option(value="primer consulta") primer consulta
+            option(value="consulta general") consulta general
+            option(value="otro") otro
 
-      label(for="hora") Hora:
-      select(name="hora", required)
-        option(value="9") 9:00
-        option(value="9.30") 9:30
-        option(value="10") 10:00
-        option(value="10.30") 10:30
-        option(value="11") 11:00
-        option(value="11.30") 11:30
-        option(value="12") 12:00
-        option(value="12.30") 12:30
-        option(value="13") 13:00
-        option(value="13.30") 13:30
-        option(value="14") 14:00
-        option(value="14.30") 14:30
-        option(value="15") 15:00
-        option(value="15.30") 15:30
-        option(value="16") 16:00
+        .form-group-horizontal
+          .half-group
+            label(for="dia") Día:
+            input(type="date", name="dia", required)
 
-      label(for="nombre") Nombre Cliente:
-      input(type="text", name="nombre", required)
+          .half-group
+            label(for="hora") Hora:
+            select(name="hora", required)
+              option(value="9.00") 9:00
+              option(value="9.30") 9:30
+              option(value="10.00") 10:00
+              option(value="10.30") 10:30
+              option(value="11.00") 11:00
+              option(value="11.30") 11:30
+              option(value="12.00") 12:00
+              option(value="12.30") 12:30
+              option(value="13.00") 13:00
+              option(value="13.30") 13:30
+              option(value="14.00") 14:00
+              option(value="14.30") 14:30
+              option(value="15.00") 15:00
+              option(value="15.30") 15:30
+              option(value="16.00") 16:00
 
-      label(for="email") E-mail:
-      input(type="email", name="email", required)
+        .form-group
+          label(for="nombre") Nombre Cliente:
+          input(type="text", name="nombre", required)
 
-      label(for="telefono") Teléfono:
-      input(type="tel", name="telefono", required)
+        .form-group
+          label(for="email") E-mail:
+          input(type="email", name="email", required)
 
-      button(type="submit") Solicitar turno
+        .form-group
+          label(for="telefono") Teléfono:
+          input(type="tel", name="telefono", required)
+
+        button(type="submit") Solicitar turno
