@@ -1,85 +1,102 @@
-extends layout
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Búsqueda de mascotas en adopción
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="/styles/mascotas.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i(class="fas fa-th")
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-block content
-  h1 Mascotas en adopción
-  h3(style="margin-bottom: 20px") Buscá al nuevo miembro de tu familia
+    .container
+      h1 Mascotas en adopción
+      h3(style="margin-bottom: 20px; color: #555") Buscá al nuevo miembro de tu familia
 
-  form(action="/mascotasAdopcion/busqueda" method="POST")
-    label(style="display: block; margin-top: 20px") Tipo:
-    div(style="display: flex; gap: 15px; margin-bottom: 10px; margin-top: 10px;")
-      label
-        input(type="radio" name="tipo" value="gato" checked)
-        |  Gato
-      label
-        input(type="radio" name="tipo" value="perro")
-        |  Perro
+      form(action="/mascotasAdopcion/busqueda", method="POST")
+        .radio-group
+          legend Tipo:
+          .radio-options
+            label
+              input(type="radio", name="tipo", value="gato", checked)
+              i.fas.fa-cat.icon
+              | Gato
+            label
+              input(type="radio", name="tipo", value="perro")
+              i.fas.fa-dog.icon
+              | Perro
 
-    label Zona:
-    select(name="zona")
-      option(value="Todas") Todas
-      option(value="CABA") CABA
-      option(value="Provincia de Buenos Aires") Provincia de Buenos Aires
+        .form-group
+          label Zona:
+          select(name="zona")
+            option(value="Todas") Todas
+            option(value="CABA") CABA
+            option(value="Provincia de Buenos Aires") Provincia de Buenos Aires
 
-    label Raza:
-    select(name="raza" id="raza")
-      option(value="Todas") Todas
+        .form-group
+          label Raza:
+          select(name="raza", id="raza")
+            option(value="Todas") Todas
 
-    label Tamaño:
-    select(name="tamano")
-      option(value="Todos") Todos
-      option Pequeño
-      option Mediano
-      option Grande
+        .form-group
+          label Tamaño:
+          select(name="tamano")
+            option(value="Todos") Todos
+            option Pequeño
+            option Mediano
+            option Grande
 
-    button(type="submit") Buscar
+        button(type="submit") Buscar
 
-  if resultados !== null
-    if resultados.length === 0
-      script.
-        alert("No se encontraron resultados para esta búsqueda.")
-    else
-      table(style="margin-top: 30px")
-        thead
-          tr
-            th Nombre
-            th Tipo
-            th Zona
-            th Raza
-            th Tamaño
-        tbody
-          each m in resultados
-            tr
-              td= m.nombre
-              td= m.tipo
-              td= m.zona
-              td= m.raza
-              td= m.tamano
 
-  // 👇 Este bloque debe estar DENTRO de block content, como aquí:
-  script.
-    const razaSelect = document.getElementById('raza');
-    const tipoRadios = document.querySelectorAll('input[name="tipo"]');
+    if resultados !== null
+      if resultados.length === 0
+        script.
+          alert("No se encontraron resultados para esta búsqueda.")
+      else
+        .container
+          .cards-container
+            each m in resultados
+              .card-mascota
+                h2= m.nombre
+                p Tipo: #{m.tipo}
+                p Zona: #{m.zona}
+                p Raza: #{m.raza}
+                p Tamaño: #{m.tamano}
 
-    const razas = {
-      gato: ["Todas", "Siamés", "Persa", "Mestizo", "Otras"],
-      perro: ["Todas", "Pitbull", "Pastor alemán", "Cocker", "Pug", "Caniche", "Mestizo"]
-    };
+    script.
+      const razaSelect = document.getElementById('raza');
+      const tipoRadios = document.querySelectorAll('input[name="tipo"]');
 
-    function actualizarOpcionesRaza(tipo) {
-      razaSelect.innerHTML = "";
-      razas[tipo].forEach(opcion => {
-        const option = document.createElement("option");
-        option.value = opcion;
-        option.textContent = opcion;
-        razaSelect.appendChild(option);
+      const razas = {
+        gato: ["Todas", "Siamés", "Persa", "Mestizo", "Otras"],
+        perro: ["Todas", "Pitbull", "Pastor alemán", "Cocker", "Pug", "Caniche", "Mestizo"]
+      };
+
+      function actualizarOpcionesRaza(tipo) {
+        razaSelect.innerHTML = "";
+        razas[tipo].forEach(opcion => {
+          const option = document.createElement("option");
+          option.value = opcion;
+          option.textContent = opcion;
+          razaSelect.appendChild(option);
+        });
+      }
+
+      tipoRadios.forEach(radio => {
+        radio.addEventListener("change", (e) => {
+          actualizarOpcionesRaza(e.target.value);
+        });
       });
-    }
 
-    tipoRadios.forEach(radio => {
-      radio.addEventListener("change", (e) => {
-        actualizarOpcionesRaza(e.target.value);
-      });
-    });
-
-    const tipoInicial = document.querySelector('input[name="tipo"]:checked').value;
-    actualizarOpcionesRaza(tipoInicial);
+      const tipoInicial = document.querySelector('input[name="tipo"]:checked').value;
+      actualizarOpcionesRaza(tipoInicial);
