@@ -64,6 +64,29 @@ body, html {
   background-color: #3d3bb4;
 }
 
+.btn-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.button-secondary {
+  padding: 0.5rem 1rem;
+  border: 2px solid #bd59afff;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: #3d3bb4;
+  color: white;
+}
+
 /***************ENCABEZADOS***************/
 h1 {
   margin: 0;

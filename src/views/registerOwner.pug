@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Registro de Dueño
+    title Registro de Clientes
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/styles/main.css")
@@ -19,7 +19,9 @@ html
     .container
       .header-flex
         h1 Clientes
-        button.button#openModal(type="button") Agregar Cliente
+        .btn-group
+          button.button#openModal(type="button") Agregar Cliente
+          a.button-secondary(href="/pets/register") Agregar Mascota
 
       if successMessage
         p.success #{successMessage}

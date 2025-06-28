@@ -18,7 +18,9 @@ html
     .container
       .header-flex
         h1 Mascotas
-        button.button#openModal(type="button") Registrar Mascota
+        .btn-group
+          button.button#openModal(type="button") Agregar Mascota
+          a.button-secondary(href="/owners/register") Agregar Cliente
 
       if successMessage
         p.success #{successMessage}
