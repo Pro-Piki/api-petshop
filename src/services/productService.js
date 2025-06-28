@@ -1,84 +1,69 @@
-const fs = require('fs').promises;
-const path = require('path');
 const Product = require('../models/Product');
-
-const productsPath = path.join(__dirname, '../data/products.json');
+const stockService = require('./stockService');
 
 async function getAllProducts() {
-  try {
-    const data = await fs.readFile(productsPath, 'utf-8');
-    return JSON.parse(data);
-  } catch (err) {
-    // si el archivo no existe, se devuelve un array vacío
-    if (err.code === 'ENOENT') {
-      return [];
-    }
-    throw err;
-  }
-}
-
-async function saveAllProducts(products) {
-  await fs.writeFile(productsPath, JSON.stringify(products, null, 2));
-}
-
-async function createProduct(nombre, categoria, tipoMascota, precio, stock) {
-  const products = await getAllProducts();
-  const newProduct = new Product(
-    nombre, 
-    categoria, 
-    tipoMascota, 
-    precio, 
-    stock
-  );
-  
-  newProduct.id = Date.now();
-  newProduct.createdAt = new Date().toISOString();
-  newProduct.updatedAt = newProduct.createdAt;
-  
-  products.push(newProduct);
-  await saveAllProducts(products);
-  return newProduct;
+  return await Product.find();
 }
 
 async function getProductById(id) {
-  const products = await getAllProducts();
-  return products.find(p => p.id === id);
+  return await Product.findById(id);
 }
+
+async function createProduct(nombre, categoria, tipoMascota, precio, stock) {
+  const newProduct = new Product({ nombre, categoria, tipoMascota, precio: Number(precio), stock: 0 });
+  const savedProduct = await newProduct.save();
+
+  if (stock > 0) {
+    await stockService.registrarMovimiento({
+      tipo: 'entrada',
+      idProducto: savedProduct._id,
+      cantidad: stock,
+      proveedor: 'Alta de producto',
+      costoUnitario: precio,
+      motivo: 'Alta inicial'
+    });
+  }
+
+  return savedProduct;
+}
+
 
 async function updateProduct(id, productData) {
-  const products = await getAllProducts();
-  const index = products.findIndex(p => p.id === id);
-  
-  if (index === -1) return null;
-  
-  const updatedProduct = {
-    ...products[index],
-    ...productData,
-    updatedAt: new Date().toISOString()
-  };
-  
-  products[index] = updatedProduct;
-  await saveAllProducts(products);
-  return updatedProduct;
+  const { stock, ...dataSinStock } = productData;
+
+  const updated = await Product.findByIdAndUpdate(
+    id,
+    { ...dataSinStock, updatedAt: new Date() },
+    { new: true }
+  );
+  return updated;
 }
 
+
 async function deleteProduct(id) {
-  const products = await getAllProducts();
-  const filteredProducts = products.filter(p => p.id !== id);
-  
-  if (products.length === filteredProducts.length) {
-    return false;
+  const producto = await Product.findById(id);
+  if (!producto) return false;
+
+  if (producto.stock > 0) {
+    await stockService.registrarMovimiento({
+      tipo: 'salida',
+      idProducto: producto._id,
+      cantidad: producto.stock,
+      proveedor: 'Eliminación de producto',
+      costoUnitario: producto.precio,
+      motivo: 'Baja de producto'
+    });
   }
-  
-  await saveAllProducts(filteredProducts);
+
+  await Product.findByIdAndDelete(id);
   return true;
 }
 
+
 module.exports = {
   getAllProducts,
-  saveAllProducts,
-  createProduct,
   getProductById,
+  createProduct,
   updateProduct,
   deleteProduct
 };

@@ -1,12 +1,17 @@
-const { getAllProducts, saveAllProducts, createProduct: createProductService, getProductById, deleteProduct: deleteProductService } = require('../services/productService');
+const {
+  getAllProducts,
+  createProduct: createProductService,
+  getProductById,
+  updateProduct: updateProductService,
+  deleteProduct: deleteProductService
+} = require('../services/productService');
 
-// renderiza el form de creacion
 async function renderCreateProductForm(req, res) {
   try {
     const products = await getAllProducts();
-    res.render('products/crear', { 
+    res.render('products/crear', {
       title: 'Crear Producto',
-      products 
+      products
     });
   } catch (error) {
     res.status(500).render('error', {
@@ -16,10 +21,9 @@ async function renderCreateProductForm(req, res) {
   }
 }
 
-// crea el nuevo producto (POST)
 async function createProduct(req, res) {
   const { nombre, categoria, tipoMascota, precio, stock } = req.body;
-  
+
   if (!nombre || !categoria || !tipoMascota || !precio || stock == null) {
     const products = await getAllProducts();
     return res.render('products/crear', {
@@ -29,8 +33,7 @@ async function createProduct(req, res) {
     });
   }
 
-try {
-    // se llama al servicio
+  try {
     await createProductService(nombre, categoria, tipoMascota, precio, stock);
     res.redirect('/products');
   } catch (error) {
@@ -42,17 +45,16 @@ try {
   }
 }
 
-// renderiza form de edición
 async function renderUpdateProductForm(req, res) {
   try {
-    const product = await getProductById(Number(req.params.id));
+    const product = await getProductById(req.params.id);
     if (!product) {
       return res.status(404).render('error', {
         title: 'Error',
         mensaje: 'Producto no encontrado'
       });
     }
-    
+
     res.render('products/editar', {
       title: 'Editar Producto',
       product
@@ -65,42 +67,35 @@ async function renderUpdateProductForm(req, res) {
   }
 }
 
-// editar el producto (PUT)
 async function updateProduct(req, res) {
   try {
-    const productId = Number(req.params.id);
+    const productId = req.params.id;
     const { nombre, categoria, tipoMascota, precio, stock } = req.body;
-    
-    const products = await getAllProducts();
-    const productIndex = products.findIndex(p => p.id === productId);
-    
-    if (productIndex === -1) {
-      return res.status(404).render('error', {
-        title: 'Error',
-        mensaje: 'Producto no encontrado'
-      });
-    }
-    
-    products[productIndex] = {
-      ...products[productIndex],
+
+    const updatedProduct = await updateProductService(productId, {
       nombre,
       categoria,
       tipoMascota,
       precio,
       stock
-    };
-    
-    await saveAllProducts(products);
+    });
+
+    if (!updatedProduct) {
+      return res.status(404).render('error', {
+        title: 'Error',
+        mensaje: 'Producto no encontrado'
+      });
+    }
+
     res.redirect('/products');
   } catch (error) {
-    res.render('products/editar', {
+    res.status(500).render('products/editar', {
       title: 'Editar Producto',
       errorMessage: 'Error al editar el producto: ' + error.message
     });
   }
 }
 
-// lista los productos
 async function listProductsView(req, res) {
   try {
     const products = await getAllProducts();
@@ -116,17 +111,16 @@ async function listProductsView(req, res) {
   }
 }
 
-// obtener un producto por id
 async function getProductViewById(req, res) {
   try {
-    const product = await getProductById(Number(req.params.id));
+    const product = await getProductById(req.params.id);
     if (!product) {
       return res.status(404).render('error', {
         title: 'Error',
         mensaje: 'Producto no encontrado'
       });
     }
-    
+
     res.render('products/detalle', {
       title: 'Detalle del Producto',
       product
@@ -139,19 +133,18 @@ async function getProductViewById(req, res) {
   }
 }
 
-// eliminar un producto (DELETE)
 async function deleteProduct(req, res) {
   try {
-    const productId = Number(req.params.id);
+    const productId = req.params.id;
     const success = await deleteProductService(productId);
-    
+
     if (!success) {
       return res.status(404).render('error', {
         title: 'Error',
         mensaje: 'Producto no encontrado'
       });
     }
-    
+
     res.redirect('/products');
   } catch (error) {
     res.status(500).render('error', {
@@ -172,7 +165,7 @@ async function listProductsApi(req, res) {
 
 async function getProductApi(req, res) {
   try {
-    const product = await getProductById(Number(req.params.id));
+    const product = await getProductById(req.params.id);
     if (!product) {
       return res.status(404).json({ error: 'Producto no encontrado' });
     }

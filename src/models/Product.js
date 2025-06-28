@@ -1,14 +1,15 @@
-class Product {
-  constructor(nombre, categoria, tipoMascota, precio, stock) {
-    this.id = Date.now();
-    this.nombre = nombre;
-    this.categoria = categoria;
-    this.tipoMascota = tipoMascota;
-    this.precio = precio;
-    this.stock = stock;
-    this.estado = 'activo';
-    this.createdAt = new Date().toISOString();
-  }
-}
+const mongoose = require('mongoose');
 
+const productSchema = new mongoose.Schema({
+  nombre: { type: String, required: true },
+  categoria: { type: String, required: true },
+  tipoMascota: { type: String, required: true },
+  precio: { type: Number, required: true },
+  stock: { type: Number, required: true },
+  estado: { type: String, default: 'activo' },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date }
+});
+
+const Product = mongoose.model('Product', productSchema);
 module.exports = Product;

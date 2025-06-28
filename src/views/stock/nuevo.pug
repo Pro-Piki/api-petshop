@@ -1,0 +1,35 @@
+extends ../layouts/main
+
+block content
+  h1 Registrar Movimiento de Stock
+
+  form(method="POST", action="/stock")
+    .mb-3
+      label.form-label(for="tipo") Tipo de movimiento
+      select.form-select(name="tipo" required)
+        option(value="entrada") Entrada
+        option(value="salida") Salida
+
+    .mb-3
+      label.form-label(for="idProducto") Producto
+      select.form-select(name="idProducto" required)
+        each producto in productos
+          option(value=producto._id)= producto.nombre
+
+    .mb-3
+      label.form-label(for="cantidad") Cantidad
+      input.form-control(type="number", name="cantidad", min="1", required)
+
+    .mb-3
+      label.form-label(for="proveedor") Proveedor
+      input.form-control(type="text", name="proveedor")
+
+    .mb-3
+      label.form-label(for="costoUnitario") Costo Unitario
+      input.form-control(type="number", name="costoUnitario", step="0.01")
+
+    .mb-3
+      label.form-label(for="motivo") Motivo
+      input.form-control(type="text", name="motivo")
+
+    button.btn.btn-primary(type="submit") Registrar
