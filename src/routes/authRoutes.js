@@ -39,7 +39,6 @@ router.post(
   register
 );
 
-
 router.get('/logout', logout);
 
 module.exports = router;

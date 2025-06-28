@@ -8,11 +8,12 @@ html
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
-      a.logout-icon(href="#", title="Cerrar sesión")
+      a.logout-icon(href="/logout", title="Cerrar sesión")
         i(class="fas fa-door-open")
 
     .panel-container
       h1 Bienvenido #{user.username} (Rol: #{user.role})
+
       .cards
         .card.card1
           i.fas.fa-user-plus
