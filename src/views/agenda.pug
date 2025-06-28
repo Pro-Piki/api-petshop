@@ -1,0 +1,61 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Agenda de turnos
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/agenda.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i.fas.fa-door-open
+
+    .container
+      h1 Agenda diaria de turnos
+
+      form(action="/agenda", method="GET")
+        .form-group
+          label(for="fecha") Seleccioná la fecha:
+          input(type="date", name="fecha", id="fecha", value=fecha)
+
+        .radio-group
+          legend Seleccioná categoría:
+          .radio-options
+            label
+              input(type="radio", name="categoria", value="veterinaria", checked=(categoria === 'veterinaria'))
+              i.fas.fa-stethoscope.icon
+              | Veterinaria
+            label
+              input(type="radio", name="categoria", value="peluquería", checked=(categoria === 'peluquería'))
+              i.fas.fa-scissors.icon
+              | Peluquería
+
+        button(type="submit") Filtrar
+
+      if turnos.length
+        table
+          thead
+            tr
+              th Hora
+              th Servicio
+              th Nombre
+              th Email
+              th Teléfono
+          tbody
+            each turno in turnos
+              tr
+                td= turno.hora
+                td= turno.servicio
+                td= turno.nombre
+                td= turno.email
+                td= turno.telefono
+      else
+        p(style="margin-top: 20px") No hay turnos registrados para esta fecha y categoría.

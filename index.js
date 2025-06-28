@@ -35,8 +35,9 @@ const turnosRoutes = require('./src/routes/turnos.routes');
 app.use('/turnos', turnosRoutes);
 const mascotasAdopcionRoutes = require('./src/routes/mascotasAdopcion.routes');
 app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
-/*const panelRoutes = require('./src/routes/panelRoutes');
-app.use('/panel', panelRoutes); */
+const agendaRoutes = require('./src/routes/agendaRoutes');
+app.use('/agenda', agendaRoutes);
+
 
 // Rutas V
 const productRoutes = require('./src/routes/productRoutes');
