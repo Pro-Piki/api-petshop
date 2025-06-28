@@ -4,66 +4,96 @@ html
     title Registro de Dueño
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    style.
-      table {
-        width: 70%;
-        border-collapse: collapse;
-      }
-      th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/owner.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
   body
-    h1 Registro de Dueño
-    br
-    a(href="/pets/register", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Registrar mascota
-    
-    if successMessage
-      p(style="color: green") #{successMessage}
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-    if errorMessage
-      p(style="color: red") #{errorMessage}
+    .container
+      .header-flex
+        h1 Clientes
+        button.button#openModal(type="button") Agregar Cliente
 
-    form(action="/owners/register", method="POST")
-      div
-        br
-        label(for="dni") DNI:
-        input(type="text", name="dni", required)
+      if successMessage
+        p.success #{successMessage}
 
-      div
-        label(for="name") Nombre:
-        input(type="text", name="name", required)
+      if errorMessage
+        p.error #{errorMessage}
 
-      div
-        label(for="phone") Teléfono:
-        input(type="text", name="phone", required)
-
-      div
-        label(for="address") Dirección:
-        input(type="text", name="address", required)
-
-      button(type="submit") Registrar Dueño
-
-    if owners && owners.length
-      h1 Dueños registrados
-      table
-        thead
-          tr
-            th ID
-            th DNI
-            th Nombre
-            th Teléfono
-            th Dirección
-        tbody
-          each owner in owners
+      if owners && owners.length
+        table.custom-table
+          thead
             tr
-              td= owner._id
-              td= owner.dni
-              td= owner.name
-              td= owner.phone
-              td= owner.address       
-    a(href="/login", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Cerrar sesión          
+              th ID
+              th DNI
+              th Nombre
+              th Teléfono
+              th Dirección
+              th Acciones
+          tbody
+            each owner in owners
+              tr
+                td= owner.id
+                td= owner.dni
+                td= owner.name
+                td= owner.phone
+                td= owner.address
+                td.actions
+                  a(href=`/owners/details/${owner.id}`, title="Ficha", class="icon-btn ficha")
+                    i.fas.fa-search
+                  a(href=`/owners/edit/${owner.id}`, title="Editar", class="icon-btn editar")
+                    i.fas.fa-pen
+                  a(href=`/owners/delete/${owner.id}`, title="Eliminar", class="icon-btn eliminar")
+                    i.fas.fa-trash
+
+
+    #modal.modal
+      .modal-content
+        span#closeModal.close ×
+        h2 Nuevo Cliente
+
+        form(action="/owners/register", method="POST")
+          div
+            label(for="dni") DNI:
+            input(type="text", name="dni", required)
+
+          div
+            label(for="name") Nombre:
+            input(type="text", name="name", required)
+
+          div
+            label(for="phone") Teléfono:
+            input(type="text", name="phone", required)
+
+          div
+            label(for="address") Dirección:
+            input(type="text", name="address", required)
+
+          button(type="submit") Registrar Cliente
+
+
+    script.
+      const openModal = document.getElementById('openModal');
+      const closeModal = document.getElementById('closeModal');
+      const modal = document.getElementById('modal');
+
+      openModal.addEventListener('click', () => {
+        modal.style.display = 'flex';
+      });
+
+      closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });

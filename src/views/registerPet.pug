@@ -4,66 +4,94 @@ html
     title Registro de Mascota
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    style.
-      table {
-        width: 70%;
-        border-collapse: collapse;
-      }
-      th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
   body
-    h1 Registro de Mascota
-    br
-    a(href="/owners/register", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Registrar dueño
-    if successMessage
-      p(style="color: green") #{successMessage}
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-    if errorMessage
-      p(style="color: red") #{errorMessage}
+    .container
+      .header-flex
+        h1 Mascotas
+        button.button#openModal(type="button") Registrar Mascota
 
-    form(action="/pets/register", method="POST")
-      div
-        br
-        label(for="name") Nombre de la mascota:
-        input(type="text", name="name", required)
+      if successMessage
+        p.success #{successMessage}
 
-      div
-        label(for="type") Tipo de mascota:
-        input(type="text", name="type", required)
+      if errorMessage
+        p.error #{errorMessage}
 
-      div
-        label(for="ownerDni") Documento del dueño:
-        input(type="text", name="ownerDni", required)
-
-      div
-        label(for="ownerName") Nombre del dueño:
-        input(type="text", name="ownerName", required)  
-
-      button(type="submit") Registrar mascota
-
-    if pets && pets.length
-      h2 Mascotas Registradas
-      table
-        thead
-          tr
-            th ID
-            th Nombre de la mascota
-            th Tipo de mascota
-            th Documento del Dueño
-            th Nombre del Dueño
-        tbody
-          each pet in pets
+      if pets && pets.length
+        table.custom-table
+          thead
             tr
-              td= pet._id
-              td= pet.name
-              td= pet.type
-              td= pet.ownerDni 
-              td= pet.ownerName 
+              th Nombre de la mascota
+              th Tipo de mascota
+              th Documento del Dueño
+              th Nombre del Dueño
+              th Acciones
+          tbody
+            each pet in pets
+              tr
+                td= pet.name
+                td= pet.type
+                td= pet.ownerDni
+                td= pet.ownerName
+                td.actions
+                  a(href=`/owners/details/${pet.ownerDni}`, title="Ficha", class="icon-btn ficha")
+                    i.fas.fa-search
+                  a(href=`/pets/edit/${pet.id}`, title="Editar", class="icon-btn editar")
+                    i.fas.fa-pen
+                  a(href=`/pets/delete/${pet.id}`, title="Eliminar", class="icon-btn eliminar")
+                    i.fas.fa-trash
 
-    a(href="/login", style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color:#cfc9c9; color: black; text-decoration: none; border-radius: 5px;") Cerrar sesión                
+
+    #modal.modal
+      .modal-content
+        span#closeModal.close ×
+        h2 Nueva Mascota
+
+        form(action="/pets/register", method="POST")
+          div
+            label(for="name") Nombre de la mascota:
+            input(type="text", name="name", required)
+
+          div
+            label(for="type") Tipo de mascota:
+            input(type="text", name="type", required)
+
+          div
+            label(for="ownerDni") Documento del dueño:
+            input(type="text", name="ownerDni", required)
+
+          div
+            label(for="ownerName") Nombre del dueño:
+            input(type="text", name="ownerName", required)
+
+          button(type="submit") Registrar Mascota
+
+
+
+    script.
+      const openModal = document.getElementById('openModal');
+      const closeModal = document.getElementById('closeModal');
+      const modal = document.getElementById('modal');
+
+      openModal.addEventListener('click', () => {
+        modal.style.display = 'flex';
+      });
+
+      closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });

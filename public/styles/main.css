@@ -28,25 +28,25 @@ body, html {
   height: 40px;
 }
 
-.panel-icon {
+/* Nuevo contenedor para los íconos */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* separa los íconos entre sí */
+}
+
+/* Estilos de íconos */
+.panel-icon,
+.logout-icon {
   color: white;
   font-size: 24px;
   text-decoration: none;
-  margin-right: 40px;
 }
 
-.logout-icon {
-  color: white;
-  font-size: 1.5em;
-  margin-left: 15px;
-  text-decoration: none;
+.panel-icon:hover,
+.logout-icon:hover {
+  color: #37c8ab;
 }
-
-
-.panel-icon:hover {
-  color: #37c8ab; 
-}
-
 /***************BOTONES***************/
 
 /* Botón reutilizable*/
