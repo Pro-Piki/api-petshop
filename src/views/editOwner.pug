@@ -1,12 +1,14 @@
 doctype html
-html
+html(lang="es")
   head
-    title Editar Cliente
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Editar Cliente
     link(rel="stylesheet", href="/styles/main.css")
-    link(rel="stylesheet", href="/styles/owner.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="/styles/productos.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
@@ -14,26 +16,32 @@ html
         a.panel-icon(href="/panel")
           i.fas.fa-th
         a.logout-icon(href="/logout", title="Cerrar sesión")
-          i(class="fas fa-door-open")
+          i.fas.fa-door-open
 
     .container
       h1 Editar Cliente
+      hr.linea-decorativa
 
-      form(action=`/owners/edit/${owner._id}`, method="POST")
-        div
+      if errorMessage
+        .error= errorMessage
+
+      form(method="POST", action=`/owners/edit/${owner._id}`)
+        .form-group
           label(for="dni") DNI:
-          input(type="text", name="dni", required, value=owner.dni)
+          input#dni(type="text", name="dni", required, value=owner.dni)
 
-        div
+        .form-group
           label(for="name") Nombre:
-          input(type="text", name="name", required, value=owner.name)
+          input#name(type="text", name="name", required, value=owner.name)
 
-        div
+        .form-group
           label(for="phone") Teléfono:
-          input(type="text", name="phone", required, value=owner.phone)
+          input#phone(type="text", name="phone", required, value=owner.phone)
 
-        div
+        .form-group
           label(for="address") Dirección:
-          input(type="text", name="address", required, value=owner.address)
+          input#address(type="text", name="address", required, value=owner.address)
 
-        button(type="submit") Actualizar Cliente
+        
+        button.button(type="submit") Guardar Cambios
+        a.button3(href="/owners/register") Cancelar

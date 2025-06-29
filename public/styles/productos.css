@@ -39,6 +39,31 @@
     padding-left: 80px;
 }
 
+.card table {
+  width: 100%;
+}
+
+.card-body{
+  margin-bottom: 50px;
+}
+
+.custom1 th:nth-child(1),
+.custom1 td:nth-child(1) {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.custom1 th:nth-child(2),
+.custom1 td:nth-child(2) {
+  text-align: left;
+  padding-left: 15px;
+}
+
+table.custom1{
+  margin-top: 15px;
+}
+
+
 /* botones con estilo común */
 .boton-general {
   display: inline-block;

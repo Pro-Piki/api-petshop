@@ -1,9 +1,14 @@
 doctype html
-html
+html(lang="es")
   head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Detalles del Cliente
     link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/productos.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
@@ -13,27 +18,49 @@ html
         a.logout-icon(href="/logout", title="Cerrar sesión")
           i.fas.fa-door-open
 
-    .container
+    .container.detalle-producto
       h1 Detalles del Cliente
+      hr.linea-decorativa
 
-      h2 Información personal
-      ul
-        li DNI: #{owner.dni}
-        li Nombre: #{owner.name}
-        li Teléfono: #{owner.phone}
-        li Dirección: #{owner.address}
+      .contenido-y-botones
+        .contenido-detalle
+          .card
+            .card-body
+              h3.card-title Información personal
+              p.card-text
+                strong DNI:
+                |  #{owner.dni}
+              p.card-text
+                strong Nombre:
+                |  #{owner.name}
+              p.card-text
+                strong Teléfono:
+                |  #{owner.phone}
+              p.card-text
+                strong Dirección:
+                |  #{owner.address}
 
-      h2 Mascotas registradas
-      if pets.length
-        table
-          thead
-            tr
-              th Nombre
-              th Tipo
-          tbody
-            each pet in pets
-              tr
-                td= pet.name
-                td= pet.type
-      else
-        p No hay mascotas registradas para este cliente.
+          hr.linea-decorativa
+
+          h3.card-title Mascotas registradas
+
+          if pets.length
+            .card
+              .card-body
+                table.custom1
+                  thead
+                    tr
+                      th Nombre
+                      th Tipo
+                  tbody
+                    each pet in pets
+                      tr
+                        td= pet.name
+                        td= pet.type
+          else
+            .error No hay mascotas registradas para este cliente.
+
+        .botones-verticales
+          a.boton-general.boton-editar(href=`/owners/edit/${owner.id}`) Editar
+          a.boton-general.boton-eliminar(href=`/owners/delete/${owner.id}`) Eliminar
+          a.boton-general.boton-volver(href="/owners/register") Volver
