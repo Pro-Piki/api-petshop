@@ -4,9 +4,16 @@ const methodOverride = require('method-override');
 const logger = require('./src/middleware/logger');
 const connectDB = require('./src/config/connectDB');
 const dotenv = require('dotenv');
+const http = require('http');
+const { Server } = require('socket.io');
+
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+let usuariosConectados = 0;
 
 connectDB();
 
@@ -57,8 +64,21 @@ app.use((req, res) => {
   });
 });
 
+io.on('connection', (socket) => {
+  
+  usuariosConectados++;
+  console.log('Un usuario se conectó. Total:', usuariosConectados);
+  io.emit('usuarios', usuariosConectados);
+
+  socket.on('disconnect', () => {
+    usuariosConectados--;
+    console.log('Un usuario se desconectó. Total:', usuariosConectados);
+    io.emit('usuarios', usuariosConectados);
+  });
+});
+
 // Servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
