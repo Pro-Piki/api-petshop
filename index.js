@@ -45,16 +45,16 @@ app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
 // Rutas Vizgarra
 const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
-app.use('/products', productRoutes);
+app.use('/productos', productRoutes);
 app.use('/stock', stockRoutes);
 
-// Ruta principal
-app.get('/', (req, res) => {
+app.get('/productosStock', (req, res) => {
   res.render('index', {
-    title: 'Inicio',
-    mensaje: 'Bienvenidos a la app con Express y MongoDB'
+    title: 'Productos y Stock',
+    mensaje: 'Accedé a la sección que quieras'
   });
 });
+
 
 // Manejo de errores 404
 app.use((req, res) => {

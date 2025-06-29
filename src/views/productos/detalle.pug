@@ -20,7 +20,7 @@ block content
         | #{product.stock}
     
     .card-footer
-      a.btn.btn-primary.me-2(href=`/products/${product.id}/editar`) Editar
-      form.d-inline(method="POST", action=`/products/${product.id}?_method=DELETE`)
+      a.btn.btn-primary.me-2(href=`/productos/${product.id}/editar`) Editar
+      form.d-inline(method="POST", action=`/productos/${product.id}?_method=DELETE`)
         button.btn.btn-danger(type="submit") Eliminar
-      a.btn.btn-secondary.ms-2(href="/products") Volver
+      a.btn.btn-secondary.ms-2(href="/productos") Volver

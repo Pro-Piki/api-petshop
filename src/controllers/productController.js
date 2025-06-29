@@ -9,7 +9,7 @@ const {
 async function renderCreateProductForm(req, res) {
   try {
     const products = await getAllProducts();
-    res.render('products/crear', {
+    res.render('productos/crear', {
       title: 'Crear Producto',
       products
     });
@@ -26,7 +26,7 @@ async function createProduct(req, res) {
 
   if (!nombre || !categoria || !tipoMascota || !precio || stock == null) {
     const products = await getAllProducts();
-    return res.render('products/crear', {
+    return res.render('productos/crear', {
       title: 'Crear Producto',
       products,
       errorMessage: 'Faltan campos requeridos'
@@ -35,9 +35,9 @@ async function createProduct(req, res) {
 
   try {
     await createProductService(nombre, categoria, tipoMascota, precio, stock);
-    res.redirect('/products');
+    res.redirect('/productos');
   } catch (error) {
-    res.render('products/crear', {
+    res.render('productos/crear', {
       title: 'Crear Producto',
       errorMessage: 'Error al crear el producto: ' + error.message,
       products: await getAllProducts()
@@ -55,7 +55,7 @@ async function renderUpdateProductForm(req, res) {
       });
     }
 
-    res.render('products/editar', {
+    res.render('productos/editar', {
       title: 'Editar Producto',
       product
     });
@@ -87,7 +87,7 @@ async function updateProduct(req, res) {
       });
     }
 
-    res.redirect('/products');
+    res.redirect('/productos');
   } catch (error) {
     res.status(500).render('products/editar', {
       title: 'Editar Producto',
@@ -99,7 +99,7 @@ async function updateProduct(req, res) {
 async function listProductsView(req, res) {
   try {
     const products = await getAllProducts();
-    res.render('products/listar', {
+    res.render('productos/listar', {
       title: 'Listado de Productos',
       products
     });
@@ -121,7 +121,7 @@ async function getProductViewById(req, res) {
       });
     }
 
-    res.render('products/detalle', {
+    res.render('productos/detalle', {
       title: 'Detalle del Producto',
       product
     });
@@ -145,7 +145,7 @@ async function deleteProduct(req, res) {
       });
     }
 
-    res.redirect('/products');
+    res.redirect('/productos');
   } catch (error) {
     res.status(500).render('error', {
       title: 'Error',

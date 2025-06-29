@@ -3,7 +3,7 @@ extends ../layouts/main
 block content
   h1.mb-4= title
   
-  a.btn.btn-primary.mb-3(href="/products/crear") Nuevo Producto
+  a.btn.btn-primary.mb-3(href="/productos/crear") Nuevo Producto
   
   table.table.table-striped
     thead
@@ -23,7 +23,7 @@ block content
           td= product.precio
           td= product.stock
           td
-            a.btn.btn-sm.btn-info.me-1(href=`/products/${product.id}`) Ver
-            a.btn.btn-sm.btn-warning.me-1(href=`/products/${product.id}/editar`) Editar
-            form.d-inline(method="POST", action=`/products/${product.id}?_method=DELETE`)
+            a.btn.btn-sm.btn-info.me-1(href=`/productos/${product.id}`) Ver
+            a.btn.btn-sm.btn-warning.me-1(href=`/productos/${product.id}/editar`) Editar
+            form.d-inline(method="POST", action=`/productos/${product.id}?_method=DELETE`)
               button.btn.btn-sm.btn-danger(type="submit") Eliminar
