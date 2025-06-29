@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Detalles del Cliente
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/pets/register") 
+          i.fas.fa-th
+        a.logout-icon(href="/logout", title="Cerrar sesión")
+          i.fas.fa-door-open
+
+    .container
+     h1 Detalles de la Mascota
+
+     ul
+        li Nombre de la mascota: #{pet.name}
+        li Tipo de mascota: #{pet.type}
+        li Documento del Dueño: #{pet.ownerDni}
+        li Nombre del Dueño: #{pet.ownerName}

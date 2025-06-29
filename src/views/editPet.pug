@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title Editar Cliente
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/owner.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="/logout", title="Cerrar sesión")
+          i(class="fas fa-door-open")
+
+    .container
+     h1 Editar Mascota
+
+     form(action=`/pets/edit/${pet._id}`, method="POST")
+      div
+        label(for="name") Nombre de la mascota:
+        input(type="text", name="name", required, value=pet.name)
+
+      div
+        label(for="type") Tipo de mascota:
+        input(type="text", name="type", required, value=pet.type)
+
+      div
+        label(for="ownerDni") Documento del dueño:
+        input(type="text", name="ownerDni", required, value=pet.ownerDni)
+
+      div
+        label(for="ownerName") Nombre del dueño:
+        input(type="text", name="ownerName", required, value=pet.ownerName)
+
+      button(type="submit") Actualizar Mascota
+
+    a.button(href="/pets/register") Cancelar
