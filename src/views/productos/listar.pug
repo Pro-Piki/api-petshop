@@ -14,11 +14,12 @@ html
           i.fas.fa-th
         a.logout-icon(href="#", title="Cerrar sesión")
           i(class="fas fa-door-open")
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .container
       .header-flex
         h1= title
-        a.button(href="/products/crear") Nuevo Producto
+        a.button(href="/productos/crear") Nuevo Producto
 
       if successMessage
         p.success #{successMessage}
@@ -44,12 +45,21 @@ html
                 td= product.precio
                 td= product.stock
                 td.actions
-                  a.icon-btn.detalle(href=`/products/${product.id}`, title="Ver")
+                  a.icon-btn.detalle(href=`/productos/${product.id}`, title="Ver")
                     i.fas.fa-search
-                  a.icon-btn.editar(href=`/products/${product.id}/editar`, title="Editar")
+                  a.icon-btn.editar(href=`/productos/${product.id}/editar`, title="Editar")
                     i.fas.fa-pen
-                  form(method="POST", action=`/products/${product.id}?_method=DELETE`, style="display:inline")
+                  form(method="POST", action=`/productos/${product.id}?_method=DELETE`, style="display:inline")
                     button.icon-btn.eliminar(type="submit", title="Eliminar")
                       i.fas.fa-trash
       else
         p.alert.alert-info No hay productos registrados
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });

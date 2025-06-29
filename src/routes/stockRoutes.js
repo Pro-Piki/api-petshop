@@ -1,20 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const {
-  listMovementsView,
-  renderIncomeForm,
-  processIncome,
-  renderOutcomeForm,
-  processOutcome,
-  listMovementsApi
-} = require('../controllers/stockController');
+  mostrarFormularioMovimiento,
+  registrarMovimiento,
+  getMovimientosPorProducto,
+  listarProductosConStock
+} = require('../controllers/stockController.js');
 
-router.get('/', listMovementsView);
-router.get('/ingreso', renderIncomeForm);
-router.post('/ingreso', processIncome);
-router.get('/salida', renderOutcomeForm);
-router.post('/salida', processOutcome);
-
-router.get('/api/list', listMovementsApi);
+router.get('/nuevo', mostrarFormularioMovimiento);
+router.post('/', registrarMovimiento);
+router.get('/:idProducto', getMovimientosPorProducto);
+router.get('/', listarProductosConStock);
 
 module.exports = router;

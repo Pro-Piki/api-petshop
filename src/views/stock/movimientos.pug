@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    title Movimientos de Stock
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
+
+    .container
+      .header-flex
+        h1 Movimientos de Stock
+        a.button(href="/stock") Volver
+
+  if movimientos.length
+    table.table.table-striped
+      thead
+        tr
+          th Tipo
+          th Cantidad
+          th Proveedor
+          th Costo Unitario
+          th Motivo
+          th Fecha
+      tbody
+        each movimiento in movimientos
+          tr
+            td(class=movimiento.tipo === 'entrada' ? 'text-success' : 'text-danger')= movimiento.tipo
+            td= movimiento.cantidad
+            td= movimiento.proveedor || '-'
+            td= movimiento.costoUnitario || '-'
+            td= movimiento.motivo || '-'
+            td= new Date(movimiento.fecha).toLocaleDateString()
+  else
+    p.text-muted No hay movimientos registrados.
+  script(src="/socket.io/socket.io.js")
+  script.
+    const socket = io();
+    socket.on('usuarios', (cantidad) => {
+      const contador = document.getElementById('contador');
+      if (contador) {
+        contador.textContent = 'Usuarios conectados: ' + cantidad;
+      }
+    });

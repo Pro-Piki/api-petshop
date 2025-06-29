@@ -1,79 +1,35 @@
-const fs = require('fs').promises;
-const path = require('path');
-const Stock = require('../models/Stock');
-const { getProductById, updateProduct } = require('./productService');
+const StockMovement = require('../models/Stock');
+const Product = require('../models/Product.js');
 
-const movementsPath = path.join(__dirname, '../data/movementsStock.json');
-
-async function getAllMovements() {
-  try {
-    const data = await fs.readFile(movementsPath, 'utf-8');
-    return JSON.parse(data);
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      return [];
-    }
-    throw err;
+async function registrarMovimiento({ tipo, idProducto, cantidad, proveedor, costoUnitario, motivo }) {
+  const producto = await Product.findById(idProducto);
+  const cantidadNumerica = Number(cantidad);
+  if (isNaN(cantidadNumerica)) {
+    throw new Error('Cantidad inválida');
   }
-}
-
-async function saveAllMovements(movements) {
-  await fs.writeFile(movementsPath, JSON.stringify(movements, null, 2));
-}
-
-async function registerMovement(movementData) {
-  const movements = await getAllMovements();
-  const newMovement = new Stock(movementData);
-  
-  movements.push(newMovement);
-  await saveAllMovements(movements);
-  return newMovement;
-}
-
-async function registerIncome({ idProducto, cantidad, proveedor, costoUnitario }) {
-  const product = await getProductById(idProducto);
-  if (!product) {
+  if (!producto) {
     throw new Error('Producto no encontrado');
   }
 
-  await updateProduct(idProducto, {
-    stock: product.stock + Number(cantidad)
-  });
-
-  return registerMovement({
-    tipo: 'ingreso',
-    idProducto,
-    cantidad,
-    proveedor,
-    costoUnitario
-  });
-}
-
-async function registerOutcome({ idProducto, cantidad, motivo }) {
-  const product = await getProductById(idProducto);
-  if (!product) {
-    throw new Error('Producto no encontrado');
-  }
-  if (product.stock < cantidad) {
+  if (tipo === 'salida' && producto.stock < cantidadNumerica) {
     throw new Error('Stock insuficiente');
   }
 
-  await updateProduct(idProducto, {
-    stock: product.stock - Number(cantidad)
-  });
+  const movimiento = new StockMovement({ tipo, idProducto, cantidad: cantidadNumerica, proveedor, costoUnitario, motivo });
+  await movimiento.save();
 
-  return registerMovement({
-    tipo: 'salida',
-    idProducto,
-    cantidad,
-    motivo
-  });
+  producto.stock += tipo === 'entrada' ? cantidadNumerica : -cantidadNumerica;
+  producto.updatedAt = new Date();
+  await producto.save();
+
+  return movimiento;
+}
+
+async function getMovimientosPorProducto(idProducto) {
+  return await StockMovement.find({ idProducto }).sort({ fecha: -1 });
 }
 
 module.exports = {
-  getAllMovements,
-  saveAllMovements,
-  registerMovement,
-  registerIncome,
-  registerOutcome
+  registrarMovimiento,
+  getMovimientosPorProducto
 };

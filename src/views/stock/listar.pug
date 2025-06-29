@@ -14,39 +14,41 @@ html
           i.fas.fa-th
         a.logout-icon(href="#", title="Cerrar sesión")
           i(class="fas fa-door-open")
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .container
       .header-flex
         h1 Movimientos de Stock
-        .buttons
-          a.button(href="/stock/ingreso") Registrar Ingreso
-          a.button.eliminar(href="/stock/salida") Registrar Salida
+        a.button(href="/stock/nuevo") Registrar Movimiento
 
       if successMessage
         p.success #{successMessage}
       if errorMessage
         p.error #{errorMessage}
 
-      if movements.length > 0
-        table.custom-table
-          thead
-            tr
-              th Tipo
-              th Producto
-              th Cantidad
-              th Fecha
-              th Detalle
-          tbody
-            each movimiento in movements
+      table.custom-table
+        thead
+          tr
+            th Nombre
+            th Categoría
+            th Tipo Mascota
+            th Stock
+            th Acciones
+        tbody
+            each producto in productos
               tr
-                td= movimiento.tipo === 'ingreso' ? 'Ingreso' : 'Salida'
-                td= movimiento.idProducto
-                td= movimiento.cantidad
-                td= new Date(movimiento.fecha).toLocaleString()
+                td= producto.nombre
+                td= producto.categoria
+                td= producto.tipoMascota
+                td= producto.stock
                 td
-                  if movimiento.tipo === 'ingreso'
-                    | Proveedor: #{movimiento.proveedor}, Costo: #{movimiento.costoUnitario}
-                  else
-                    | Motivo: #{movimiento.motivo}
-      else
-        p.alert.alert-info No hay movimientos registrados
+                  a.btn.btn-sm.btn-info(href=`/stock/${producto._id}`) Ver Movimientos
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });

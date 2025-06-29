@@ -1,14 +1,21 @@
-require('dotenv').config();
-
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const methodOverride = require('method-override');
-const connectDB = require('./src/config/db'); 
+const connectDB = require('./src/config/db');
+const dotenv = require('dotenv');
+const http = require('http');
+const { Server } = require('socket.io');
+
+dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-connectDB(); 
+let usuariosConectados = 0;
+
+connectDB();
 
 app.use(cookieParser());
 
@@ -39,21 +46,25 @@ app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
 // Rutas V
 const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
-const productApiRoutes = require('./src/routes/productApiRoutes');
-app.use('/products', productRoutes);
-app.use('/api/products', productApiRoutes); 
+app.use('/productos', productRoutes);
 app.use('/stock', stockRoutes);
 
-// manejo de errores 404
-app.use((req, res) => {
-  res.status(404).render('error', {
-    title: 'Página no encontrada',
-    mensaje: 'La ruta solicitada no existe'
+io.on('connection', (socket) => {
+  
+  usuariosConectados++;
+  console.log('Un usuario se conectó. Total:', usuariosConectados);
+  io.emit('usuarios', usuariosConectados);
+
+  socket.on('disconnect', () => {
+    usuariosConectados--;
+    console.log('Un usuario se desconectó. Total:', usuariosConectados);
+    io.emit('usuarios', usuariosConectados);
   });
 });
 
 // Servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

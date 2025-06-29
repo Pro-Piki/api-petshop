@@ -7,9 +7,7 @@ const {
   updateProduct,
   listProductsView,
   getProductViewById,
-  deleteProduct,
-  listProductsApi,
-  getProductApi
+  deleteProduct
 } = require('../controllers/productController');
 
 
@@ -22,9 +20,5 @@ router.put('/:id', updateProduct);
 router.get('/', listProductsView);
 router.get('/:id', getProductViewById);
 router.delete('/:id', deleteProduct);
-
-
-router.get('/api/list', listProductsApi);
-router.get('/api/:id', getProductApi);
 
 module.exports = router;

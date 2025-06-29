@@ -17,6 +17,7 @@ html(lang="es")
           i(class="fas fa-th")
         a.logout-icon(href="#", title="Cerrar sesión")
           i(class="fas fa-door-open")
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .container.detalle-producto
       h1 Detalle del Producto
@@ -40,7 +41,16 @@ html(lang="es")
                 | #{product.stock}
 
         .botones-verticales
-          a.boton-general.boton-editar(href=`/products/${product.id}/editar`) Editar
-          form(method="POST", action=`/products/${product.id}?_method=DELETE`, class="form-eliminar")
+          a.boton-general.boton-editar(href=`/productos/${product.id}/editar`) Editar
+          form(method="POST", action=`/productos/${product.id}?_method=DELETE`, class="form-eliminar")
             button.boton-general.boton-eliminar(type="submit") Eliminar
-          a.boton-general.boton-volver(href="/products") Volver
+          a.boton-general.boton-volver(href="/productos") Volver
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });

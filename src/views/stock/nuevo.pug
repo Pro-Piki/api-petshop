@@ -1,0 +1,62 @@
+doctype html
+html
+  head
+    title Registrar movimiento de Stock
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
+
+    .container
+      .header-flex
+        h1 Registrar movimiento de Stock
+        a.button(href="/stock") Volver
+
+  form(method="POST", action="/stock")
+    .mb-3
+      label.form-label(for="tipo") Tipo de movimiento
+      select.form-select(name="tipo" required)
+        option(value="entrada") Entrada
+        option(value="salida") Salida
+
+    .mb-3
+      label.form-label(for="idProducto") Producto
+      select.form-select(name="idProducto" required)
+        each producto in productos
+          option(value=producto._id)= producto.nombre
+
+    .mb-3
+      label.form-label(for="cantidad") Cantidad
+      input.form-control(type="number", name="cantidad", min="1", required)
+
+    .mb-3
+      label.form-label(for="proveedor") Proveedor
+      input.form-control(type="text", name="proveedor")
+
+    .mb-3
+      label.form-label(for="costoUnitario") Costo Unitario
+      input.form-control(type="number", name="costoUnitario", step="0.01")
+
+    .mb-3
+      label.form-label(for="motivo") Motivo
+      input.form-control(type="text", name="motivo")
+
+    button.btn.btn-primary(type="submit") Registrar
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });

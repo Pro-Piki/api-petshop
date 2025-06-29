@@ -17,6 +17,7 @@ html(lang="es")
           i.fas.fa-th
         a.logout-icon(href="#", title="Cerrar sesión")
           i.fas.fa-door-open
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .container
       h1 Editar Producto
@@ -25,7 +26,7 @@ html(lang="es")
       if errorMessage
         .error= errorMessage
 
-      form(method="POST", action=`/products/${product.id}?_method=PUT`)
+      form(method="POST", action=`/productos/${product.id}?_method=PUT`)
         .form-group
           label(for="nombre") Nombre:
           input#nombre(type="text", name="nombre", value=product.nombre, required)
@@ -45,8 +46,17 @@ html(lang="es")
 
           .half-group
             label(for="stock") Stock:
-            input#stock(type="number", name="stock", value=product.stock, required)
+            input#stock(type="number", name="stock", value=product.stock, disabled)
 
         
         button.button(type="submit") Guardar Cambios
-        a.button3(href="/products") Cancelar
+        a.button3(href="/productos") Cancelar
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });
