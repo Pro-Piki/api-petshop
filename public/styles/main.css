@@ -90,6 +90,32 @@ body, html {
     margin-left: 15px;
 }
 
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap; 
+  margin-top: 20px;
+}
+
+.form-buttons a,
+.form-buttons button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  min-width: 120px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+
+
+
 /***************ENCABEZADOS***************/
 h1 {
   margin: 0;

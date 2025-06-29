@@ -36,7 +36,6 @@ html
               th Tipo de mascota
               th Documento del Dueño
               th Nombre del Dueño
-              th Acciones
           tbody
             each pet in pets
               tr
@@ -44,13 +43,6 @@ html
                 td= pet.type
                 td= pet.ownerDni
                 td= pet.ownerName
-                td.actions
-                  a(href=`/owners/details/${pet.ownerDni}`, title="Ficha", class="icon-btn ficha")
-                    i.fas.fa-search
-                  a(href=`/pets/edit/${pet.id}`, title="Editar", class="icon-btn editar")
-                    i.fas.fa-pen
-                  a(href=`/pets/delete/${pet.id}`, title="Eliminar", class="icon-btn eliminar")
-                    i.fas.fa-trash
 
 
     #modal.modal

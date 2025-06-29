@@ -1,31 +1,52 @@
-extends ../layouts/main
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Editar Producto
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="/styles/productos.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
 
-block content
-  h1.mb-4= title
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i.fas.fa-door-open
 
-  if errorMessage
-    .alert.alert-danger= errorMessage
+    .container
+      h1 Editar Producto
+      hr.linea-decorativa
 
-  form(method="POST", action=`/products/${product.id}?_method=PUT`)
-    .mb-3
-      label.form-label(for="nombre") Nombre
-      input.form-control(type="text", id="nombre", name="nombre", value=product.nombre, required)
-    
-    .mb-3
-      label.form-label(for="categoria") Categoría
-      input.form-control(type="text", id="categoria", name="categoria", value=product.categoria, required)
-    
-    .mb-3
-      label.form-label(for="tipoMascota") Tipo de Mascota
-      input.form-control(type="text", id="tipoMascota", name="tipoMascota", value=product.tipoMascota, required)
-    
-    .mb-3
-      label.form-label(for="precio") Precio
-      input.form-control(type="number", id="precio", name="precio", step="0.01", value=product.precio, required)
-    
-    .mb-3
-      label.form-label(for="stock") Stock
-      input.form-control(type="number", id="stock", name="stock", value=product.stock, required)
-    
-    button.btn.btn-primary.me-2(type="submit") Editar
-    a.btn.btn-secondary(href="/products") Cancelar
+      if errorMessage
+        .error= errorMessage
+
+      form(method="POST", action=`/products/${product.id}?_method=PUT`)
+        .form-group
+          label(for="nombre") Nombre:
+          input#nombre(type="text", name="nombre", value=product.nombre, required)
+
+        .form-group
+          label(for="categoria") Categoría:
+          input#categoria(type="text", name="categoria", value=product.categoria, required)
+
+        .form-group
+          label(for="tipoMascota") Tipo de Mascota:
+          input#tipoMascota(type="text", name="tipoMascota", value=product.tipoMascota, required)
+
+        .form-group-horizontal
+          .half-group
+            label(for="precio") Precio:
+            input#precio(type="number", name="precio", step="0.01", value=product.precio, required)
+
+          .half-group
+            label(for="stock") Stock:
+            input#stock(type="number", name="stock", value=product.stock, required)
+
+        .form-group
+          button.button(type="submit") Guardar Cambios
+          a.button-cancelar(href="/products") Cancelar
