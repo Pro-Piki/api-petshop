@@ -1,3 +1,5 @@
+//src/controllers/AgendaController.js
+
 const { getTurnosPorFechaYCategoria } = require('../services/agendaService');
 
 function mostrarAgenda(req, res) {
