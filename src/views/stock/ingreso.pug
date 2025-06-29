@@ -1,30 +1,47 @@
-extends ../layouts/main
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Ingreso de Stock
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="/styles/productos.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel" title="Ir al Panel")
+          i(class="fas fa-th")
+        a.logout-icon(href="#" title="Cerrar sesión")
+          i(class="fas fa-door-open")
 
-block content
-  h1= title
-  
-  if errorMessage
-    .alert.alert-danger= errorMessage
-  
-  form(method="POST")
-    .mb-3
-      label.form-label(for="idProducto") Producto
-      select.form-select(name="idProducto" required)
-        each product in products
-          option(value=product.id)= product.nombre
-    
-    .mb-3
-      label.form-label(for="cantidad") Cantidad
-      input.form-control(type="number" name="cantidad" required min="1")
-    
-    .mb-3
-      label.form-label(for="proveedor") Proveedor
-      input.form-control(type="text" name="proveedor" required)
-    
-    .mb-3
-      label.form-label(for="costoUnitario") Costo Unitario
-      input.form-control(type="number" name="costoUnitario" required step="0.01" min="0")
-    
-    .mb-3
-      button.btn.btn-primary(type="submit") Registrar Ingreso
-      a.btn.btn-secondary.ms-2(href="/stock") Cancelar
+    .container
+      h1 Ingreso de Stock
+
+      if errorMessage
+        .error= errorMessage
+
+      form(method="POST", action="/stock/registrar")
+        .form-group
+          label(for="idProducto") Producto
+          select(name="idProducto" id="idProducto" required)
+            each product in products
+              option(value=product.id)= product.nombre
+
+        .form-group
+          label(for="cantidad") Cantidad
+          input#cantidad(type="number", name="cantidad", required, min="1")
+
+        .form-group
+          label(for="proveedor") Proveedor
+          input#proveedor(type="text", name="proveedor", required)
+
+        .form-group
+          label(for="costoUnitario") Costo Unitario
+          input#costoUnitario(type="number", name="costoUnitario", required, step="0.01", min="0")
+
+        .form-buttons
+          button(type="submit") Registrar Ingreso
+          a.button3(href="/stock") Cancelar
