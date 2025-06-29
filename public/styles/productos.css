@@ -1,0 +1,109 @@
+.detalle-producto {
+  max-width: 900px;
+  margin: 50px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contenido-y-botones {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.contenido-detalle {
+  flex: 1 1 auto;
+  margin-top: 0;
+  padding-top: 0%;
+}
+
+.botones-verticales {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 150px; 
+}
+
+.card-title{
+  margin: 0;
+  padding: 0;
+  padding-left: 80px;
+}
+
+.card-text{
+    text-align: center;
+    padding-left: 80px;
+}
+
+/* botones con estilo común */
+.boton-general {
+  display: inline-block;
+  width: 100%;
+  padding: 12px 0;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-editar {
+  background-color: #61acfb;
+}
+.boton-editar:hover {
+  background-color: #2d86d1;
+}
+
+.boton-eliminar {
+  background-color: #db5360;
+}
+.boton-eliminar:hover {
+  background-color: #a71d2a;
+}
+
+.boton-volver {
+  background-color: #6c757d;
+  margin-top: 10px;
+}
+.boton-volver:hover {
+  background-color: #565e64;
+}
+
+
+.contenido-detalle {
+  padding-top: 10px; 
+}
+
+
+.form-eliminar {
+  margin: 0;
+  padding: 0;
+}
+
+.form-eliminar button {
+  margin: 0;
+  padding: 12px 0; 
+  height: 40px; 
+}
+
+
+h3{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.linea-decorativa {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: auto;
+  width: 60%;
+}

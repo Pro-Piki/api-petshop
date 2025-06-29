@@ -1,26 +1,46 @@
-extends ../layouts/main
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Detalle del Producto
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/productos.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
 
-block content
-  h1.mb-4 Detalle del Producto
-  
-  .card
-    .card-body
-      h5.card-title= product.nombre
-      p.card-text
-        strong Categoría: 
-        | #{product.categoria}
-      p.card-text
-        strong Tipo de Mascota: 
-        | #{product.tipoMascota}
-      p.card-text
-        strong Precio: 
-        | $#{product.precio}
-      p.card-text
-        strong Stock: 
-        | #{product.stock}
-    
-    .card-footer
-      a.btn.btn-primary.me-2(href=`/products/${product.id}/editar`) Editar
-      form.d-inline(method="POST", action=`/products/${product.id}?_method=DELETE`)
-        button.btn.btn-danger(type="submit") Eliminar
-      a.btn.btn-secondary.ms-2(href="/products") Volver
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i(class="fas fa-th")
+        a.logout-icon(href="#", title="Cerrar sesión")
+          i(class="fas fa-door-open")
+
+    .container.detalle-producto
+      h1 Detalle del Producto
+      hr.linea-decorativa
+      .contenido-y-botones
+        .contenido-detalle
+          .card
+            .card-body
+              h3.card-title= product.nombre
+              p.card-text
+                strong Categoría:
+                | #{product.categoria}
+              p.card-text
+                strong Tipo de Mascota:
+                | #{product.tipoMascota}
+              p.card-text
+                strong Precio:
+                | $#{product.precio}
+              p.card-text
+                strong Stock:
+                | #{product.stock}
+
+        .botones-verticales
+          a.boton-general.boton-editar(href=`/products/${product.id}/editar`) Editar
+          form(method="POST", action=`/products/${product.id}?_method=DELETE`, class="form-eliminar")
+            button.boton-general.boton-eliminar(type="submit") Eliminar
+          a.boton-general.boton-volver(href="/products") Volver

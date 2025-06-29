@@ -140,3 +140,14 @@ button:hover {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+
+.button3{
+  background-color: #565e64;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  color: white;
+  text-align: center;
+}

@@ -1,16 +1,4 @@
-/* === ESTILO GENERAL === */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-image: 
-    url('/images/huellita.png'),
-    linear-gradient(135deg, rgba(22, 22, 80, 0.9), rgba(55, 200, 171, 0.9));
-  background-repeat: no-repeat;
-  background-size: 200px auto, cover;
-  background-position: left 50px bottom 50px, center;
-  min-height: 100vh;
-}
+
 
 /* === CONTENEDOR === */
 .container {
@@ -146,4 +134,55 @@ button:hover {
 .card-mascota p {
   margin: 5px 0;
   color: #555;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 60px auto;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.subtitulo {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.busqueda-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #bd59af;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+button[type="submit"]:hover {
+  transform: scale(1.05);
 }
