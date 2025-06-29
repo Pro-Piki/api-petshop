@@ -12,7 +12,7 @@ html
       .nav-icons
         a.panel-icon(href="/panel")
           i.fas.fa-th
-        a.logout-icon(href="#", title="Cerrar sesión")
+        a.logout-icon(href="/logout", title="Cerrar sesión")
           i(class="fas fa-door-open")
 
     .container
@@ -32,6 +32,7 @@ html
         table.custom-table
           thead
             tr
+              th ID
               th Nombre de la mascota
               th Tipo de mascota
               th Documento del Dueño
@@ -40,16 +41,17 @@ html
           tbody
             each pet in pets
               tr
+                td= pet._id
                 td= pet.name
                 td= pet.type
                 td= pet.ownerDni
                 td= pet.ownerName
                 td.actions
-                  a(href=`/owners/details/${pet.ownerDni}`, title="Ficha", class="icon-btn ficha")
+                  a(href=`/owners/details/${pet.ownerDni}`, title="Detalles", class="icon-btn detalle")
                     i.fas.fa-search
-                  a(href=`/pets/edit/${pet.id}`, title="Editar", class="icon-btn editar")
+                  a(href=`/pets/edit/${pet._id}`, title="Editar", class="icon-btn editar")
                     i.fas.fa-pen
-                  a(href=`/pets/delete/${pet.id}`, title="Eliminar", class="icon-btn eliminar")
+                  a(href=`/pets/delete/${pet._id}`, title="Eliminar", class="icon-btn eliminar")
                     i.fas.fa-trash
 
 

@@ -4,9 +4,13 @@ const router = express.Router();
 const { registerOwner, handleOwnerCreation } = require('../controllers/ownerController');
 const { getAllOwners } = require('../services/ownerService');
 const { authenticateToken } = require('../middleware/authMiddleware');
+const { getOwnerDetails } = require('../controllers/ownerController');
+const Owner = require('../models/Owner');
+const { getOwnerById } = require('../controllers/ownerController');
+const { deleteOwner } = require('../controllers/ownerController');
+
 
 router.get('/owners/json', authenticateToken, async (req, res) => {
-  // Solo usuarios con token válido llegan acá
   const owners = await getAllOwners();
   res.json(owners);
 });
@@ -40,5 +44,43 @@ router.post('/api', async (req, res) => {
     owner: result.owner
   });
 });
+
+// Para ver los detalles del cliente
+router.get('/details/:id', getOwnerDetails);
+
+// Mostrar formulario para editar cliente
+router.get('/edit/:id', async (req, res) => {
+  const owner = await getOwnerById(req.params.id);
+  if (!owner) {
+    return res.status(404).render('error', { title: 'No encontrado', mensaje: 'Cliente no encontrado.' });
+  }
+  res.render('editOwner', { owner });
+});
+
+// Procesar actualización del cliente
+router.post('/edit/:id', async (req, res) => {
+  const { dni, name, phone, address } = req.body;
+  try {
+    const owner = await Owner.findByIdAndUpdate(req.params.id, {
+      dni,
+      name,
+      phone,
+      address
+    });
+
+    if (!owner) {
+      return res.status(404).render('error', { title: 'No encontrado', mensaje: 'Cliente no encontrado para editar.' });
+    }
+
+    res.redirect('/owners/register');
+  } catch (error) {
+    console.error('Error al actualizar cliente:', error);
+    res.status(500).render('error', { title: 'Error', mensaje: 'No se pudo actualizar el cliente.' });
+  }
+});
+
+// Proceso eliminar un cliente
+router.get('/delete/:id', deleteOwner);
+
 
 module.exports = router;

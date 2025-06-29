@@ -1,5 +1,6 @@
 // src/services/ownerService.js
 const Owner = require('../models/Owner');
+const Pet = require('../models/Pet');
 
 async function getAllOwners() {
   try {
@@ -29,8 +30,26 @@ async function registerOwnerIfNotExists(dni, name, phone, address) {
   return { owner, alreadyExists };
 }
 
+async function getOwnerById(id) {
+  return await Owner.findById(id);
+}
+
+async function deleteOwnerById(id) {
+  const owner = await Owner.findById(id);
+  if (!owner) throw new Error('Dueño no encontrado');
+
+  const mascotas = await Pet.find({ ownerDni: owner.dni });
+  if (mascotas.length > 0) {
+    throw new Error('No se puede eliminar un dueño con mascotas asociadas');
+  }
+
+  await Owner.findByIdAndDelete(id);
+}
+
 module.exports = {
   getAllOwners,
   findOwnerByDni,
-  registerOwnerIfNotExists
+  registerOwnerIfNotExists,
+  getOwnerById,
+  deleteOwnerById 
 };
