@@ -35,9 +35,6 @@ const turnosRoutes = require('./src/routes/turnos.routes');
 app.use('/turnos', turnosRoutes);
 const mascotasAdopcionRoutes = require('./src/routes/mascotasAdopcion.routes');
 app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
-const agendaRoutes = require('./src/routes/agendaRoutes');
-app.use('/agenda', agendaRoutes);
-
 
 // Rutas V
 const productRoutes = require('./src/routes/productRoutes');
@@ -46,14 +43,6 @@ const productApiRoutes = require('./src/routes/productApiRoutes');
 app.use('/products', productRoutes);
 app.use('/api/products', productApiRoutes); 
 app.use('/stock', stockRoutes);
-
-// ruta principal
-app.get('/', (req, res) => {
-  res.render('index', { 
-    title: 'Inicio', 
-    mensaje: 'Bienvenidos a la app con Express y MongoDB' // 🔄 texto actualizado opcional
-  });
-});
 
 // manejo de errores 404
 app.use((req, res) => {
@@ -66,5 +55,5 @@ app.use((req, res) => {
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

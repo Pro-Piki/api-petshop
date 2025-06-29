@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title Editar Cliente
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/owner.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  body
+    .navbar
+      img(src="/images/logo.png", alt="Logo")
+      .nav-icons
+        a.panel-icon(href="/panel")
+          i.fas.fa-th
+        a.logout-icon(href="/logout", title="Cerrar sesión")
+          i(class="fas fa-door-open")
+
+    .container
+      h1 Editar Cliente
+
+      form(action=`/owners/edit/${owner._id}`, method="POST")
+        div
+          label(for="dni") DNI:
+          input(type="text", name="dni", required, value=owner.dni)
+
+        div
+          label(for="name") Nombre:
+          input(type="text", name="name", required, value=owner.name)
+
+        div
+          label(for="phone") Teléfono:
+          input(type="text", name="phone", required, value=owner.phone)
+
+        div
+          label(for="address") Dirección:
+          input(type="text", name="address", required, value=owner.address)
+
+        button(type="submit") Actualizar Cliente

@@ -13,8 +13,8 @@ html
       .nav-icons
         a.panel-icon(href="/panel")
           i.fas.fa-th
-        a.logout-icon(href="#", title="Cerrar sesión")
-          i(class="fas fa-door-open")
+        a.logout-icon(href="/logout", title="Cerrar sesión")
+          i.fas.fa-door-open
 
     .container
       .header-flex
@@ -42,44 +42,38 @@ html
           tbody
             each owner in owners
               tr
-                td= owner.id
+                td= owner._id
                 td= owner.dni
                 td= owner.name
                 td= owner.phone
                 td= owner.address
                 td.actions
-                  a(href=`/owners/details/${owner.id}`, title="Ficha", class="icon-btn ficha")
+                  a(href=`/owners/details/${owner._id}`, title="Detalles", class="icon-btn detalle", data-ownerid=owner._id)
                     i.fas.fa-search
-                  a(href=`/owners/edit/${owner.id}`, title="Editar", class="icon-btn editar")
+                  a(href=`/owners/edit/${owner._id}`, title="Editar", class="icon-btn editar")
                     i.fas.fa-pen
-                  a(href=`/owners/delete/${owner.id}`, title="Eliminar", class="icon-btn eliminar")
+                  a(href=`/owners/delete/${owner._id}`, title="Eliminar", class="icon-btn eliminar")
                     i.fas.fa-trash
 
-
+    // Modal para agregar cliente
     #modal.modal
       .modal-content
         span#closeModal.close ×
         h2 Nuevo Cliente
-
         form(action="/owners/register", method="POST")
           div
             label(for="dni") DNI:
             input(type="text", name="dni", required)
-
           div
             label(for="name") Nombre:
             input(type="text", name="name", required)
-
           div
             label(for="phone") Teléfono:
             input(type="text", name="phone", required)
-
           div
             label(for="address") Dirección:
             input(type="text", name="address", required)
-
           button(type="submit") Registrar Cliente
-
 
     script.
       const openModal = document.getElementById('openModal');
@@ -98,4 +92,14 @@ html
         if (e.target === modal) {
           modal.style.display = 'none';
         }
+      });
+
+    script.
+      const deleteButtons = document.querySelectorAll('.icon-btn.eliminar');
+      deleteButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          if (!confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+            e.preventDefault();
+          }
+        });
       });

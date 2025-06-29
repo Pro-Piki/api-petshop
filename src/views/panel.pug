@@ -8,49 +8,71 @@ html
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
-      a.logout-icon(href="#", title="Cerrar sesión")
+      a.logout-icon(href="/logout", title="Cerrar sesión")
         i(class="fas fa-door-open")
 
     .panel-container
       h1 Bienvenido #{user.username} (Rol: #{user.role})
+
       .cards
-        .card.card1
-          i.fas.fa-user-plus
-          h2 Registro de Clientes
-          p Alta de un nuevo responsable del animal.
-          a(href="/owners/register") Ir al formulario
-        .card.card2
-          i.fas.fa-dog
-          h2 Registro de mascotas
-          p Cargar los datos de una nueva mascota.
-          a(href="/pets/register") Ir al formulario
-        .card.card3
-          i.fas.fa-calendar-check
-          h2 Solicitud de turno
-          p Agendar turno para atención veterinaria y/o peluquería.
-          a(href="/turnos/nuevo") Solicitar turno
-        .card.card4
-          i.fas.fa-calendar-day
-          h2 Ver agenda
-          p Visualizar todos los turnos asignados.
-          a(href="/agenda") Ver agenda
-        .card.card5
-          i.fas.fa-boxes
-          h2 Listado de productos
-          p Visualizar los productos y su disponibilidad.
-          a(href="/products") Ver productos
-        .card.card6
-          i.fas.fa-exchange-alt
-          h2 Movimientos de stock
-          p Consultar entradas y salidas de stock.
-          a(href="/stock") Ver movimientos
-        .card.card7
-          i.fas.fa-user-plus
-          h2 Registro de Usuarios
-          p Alta de nuevos usuarios con roles de acceso.
-          a(href="/panel/register") Ir al formulario
-        .card.card8
-          i.fas.fa-magnifying-glass 
-          h2 Búsqueda de mascotas
-          p Buscar mascotas en adopción
-          a(href="/mascotasAdopcion/busqueda") Ir al formulario
+        if user.role === 'Admin' || user.role === 'Empleado'
+          .card.card1
+            i.fas.fa-user-plus
+            h2 Registro de Clientes
+            p Alta de un nuevo responsable del animal.
+            a(href="/owners/register") Ir al formulario
+
+          .card.card2
+            i.fas.fa-dog
+            h2 Registro de mascotas
+            p Cargar los datos de una nueva mascota.
+            a(href="/pets/register") Ir al formulario
+
+          .card.card3
+            i.fas.fa-calendar-check
+            h2 Solicitud de turno
+            p Agendar turno para atención veterinaria y/o peluquería.
+            a(href="/turnos/nuevo") Solicitar turno
+
+          .card.card4
+            i.fas.fa-calendar-day
+            h2 Ver agenda
+            p Visualizá todos los turnos asignados.
+            a(href="/agenda") Ver agenda
+
+          .card.card5
+            i.fas.fa-boxes
+            h2 Listado de productos
+            p Visualizá los productos y su disponibilidad.
+            a(href="/products") Ver productos
+
+          .card.card6
+            i.fas.fa-exchange-alt
+            h2 Movimientos de stock
+            p Consultá entradas y salidas de stock.
+            a(href="/stock") Ver movimientos
+
+          .card.card7
+            i.fas.fa-user-plus
+            h2 Registro de Usuarios
+            p Alta de nuevos usuarios con roles de acceso.
+            a(href="/panel/register") Crear usuario
+
+        else if user.role === 'Profesional'
+          .card.card4
+            i.fas.fa-calendar-day
+            h2 Ver agenda
+            p Visualizá todos los turnos asignados.
+            a(href="/agenda") Ver agenda
+
+        else if user.role === 'Cliente'
+          .card.card3
+            i.fas.fa-calendar-check
+            h2 Solicitud de turno
+            p Agendar turno para atención veterinaria y/o peluquería.
+            a(href="/turnos/nuevo") Solicitar turno
+          .card.card8
+            i.fas.fa-magnifying-glass 
+            h2 Búsqueda de mascotas
+            p Buscar mascotas en adopción
+            a(href="/mascotasAdopcion/busqueda") Ir al formulario

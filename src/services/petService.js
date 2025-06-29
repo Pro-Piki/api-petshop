@@ -11,7 +11,12 @@ async function createPet(name, type, ownerDni, ownerName) {
   return pet;
 }
 
+async function getPetsByOwnerDni(ownerDni) {
+  return await Pet.find({ ownerDni });
+}
+
 module.exports = {
   getAllPets,
-  createPet
+  createPet,
+  getPetsByOwnerDni
 };
