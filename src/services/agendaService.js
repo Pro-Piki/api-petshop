@@ -1,30 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+//src/services/agendaService.js
+
+const Turno = require('../models/Turno');
 const { parseISO, isSameDay } = require('date-fns');
 
-const rutaTurnos = path.join(__dirname, '..', 'data', 'turnos.json');
-
-function getTurnosPorFechaYCategoria(fechaStr, categoria) {
-  let turnos = [];
-
+async function getTurnosPorFechaYCategoria(fechaStr, categoria) {
   try {
-    const data = fs.readFileSync(rutaTurnos, 'utf-8');
-    turnos = JSON.parse(data);
+    const fechaBuscada = parseISO(fechaStr);
+
+    const turnos = await Turno.find(); // Traemos todos y filtramos con date-fns
+
+    return turnos.filter(turno => {
+      const fechaTurno = parseISO(turno.dia);
+      const coincideFecha = isSameDay(fechaBuscada, fechaTurno);
+      const coincideCategoria = categoria === '' || turno.categoria === categoria;
+
+      return coincideFecha && coincideCategoria;
+    });
   } catch (error) {
-    console.error('Error al leer turnos:', error);
+    console.error('Error al obtener turnos desde MongoDB:', error);
     return [];
   }
-
-  const fechaBuscada = parseISO(fechaStr);
-
-  return turnos.filter(turno => {
-    const fechaTurno = parseISO(turno.dia);
-
-    const coincideFecha = isSameDay(fechaBuscada, fechaTurno);
-    const coincideCategoria = categoria === '' || turno.categoria === categoria;
-
-    return coincideFecha && coincideCategoria;
-  });
 }
 
 module.exports = { getTurnosPorFechaYCategoria };

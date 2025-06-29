@@ -1,3 +1,5 @@
+//src/routes/mascotasAdopcion.routes.js
+
 const express = require('express');
 const router = express.Router();
 const { mostrarBusqueda, buscarMascotasAdopcion } = require('../controllers/mascotasAdopcion.controller');

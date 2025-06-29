@@ -1,15 +1,9 @@
-const fs = require('fs').promises;
-const path = require('path');
+//src/services/mascotasAdopcion.service.js
 
-const RUTA_JSON = path.join(__dirname, '../data/mascotasAdopcion.json');
+const Mascota = require('../models/MascotaAdopcion');
 
 async function leerMascotasAdopcion() {
-  try {
-    const data = await fs.readFile(RUTA_JSON, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+  return await Mascota.find(); // Devuelve todas
 }
 
 module.exports = { leerMascotasAdopcion };
