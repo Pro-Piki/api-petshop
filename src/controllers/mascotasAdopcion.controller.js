@@ -1,3 +1,5 @@
+//src/controllers/mascotasAdopcion.controller.js
+
 const { leerMascotasAdopcion } = require('../services/mascotasAdopcion.service');
 
 async function mostrarBusqueda(req, res) {

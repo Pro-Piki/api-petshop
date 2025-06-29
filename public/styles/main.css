@@ -7,10 +7,9 @@ body, html {
     url('/images/huellita.png'),
     linear-gradient(135deg, rgba(22, 22, 80, 0.9), rgba(55, 200, 171, 0.9));
 
-  background-repeat: no-repeat, no-repeat;
+  background-repeat: no-repeat;
   background-size: 200px auto, cover;
   background-position: left 50px bottom 50px, center;
-
   min-height: 100vh;
 }
 
