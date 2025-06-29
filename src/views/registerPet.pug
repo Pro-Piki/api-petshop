@@ -13,7 +13,7 @@ html
         a.panel-icon(href="/panel")
           i.fas.fa-th
         a.logout-icon(href="/logout", title="Cerrar sesión")
-          i(class="fas fa-door-open")
+          i.fas.fa-door-open
 
     .container
       .header-flex
@@ -37,6 +37,7 @@ html
               th Tipo de mascota
               th Documento del Dueño
               th Nombre del Dueño
+              th Acciones
           tbody
             each pet in pets
               tr
@@ -45,17 +46,14 @@ html
                 td= pet.type
                 td= pet.ownerDni
                 td= pet.ownerName
-<<<<<<< HEAD
-=======
+
                 td.actions
-                  a(href=`/owners/details/${pet.ownerDni}`, title="Detalles", class="icon-btn detalle")
+                  a(href=`/pets/details/${pet._id}`, title="Detalles", class="icon-btn detalle")
                     i.fas.fa-search
                   a(href=`/pets/edit/${pet._id}`, title="Editar", class="icon-btn editar")
                     i.fas.fa-pen
                   a(href=`/pets/delete/${pet._id}`, title="Eliminar", class="icon-btn eliminar")
                     i.fas.fa-trash
->>>>>>> e8fa62a82ac329a78c736662079144ce0147b1c9
-
 
     #modal.modal
       .modal-content
@@ -81,8 +79,6 @@ html
 
           button(type="submit") Registrar Mascota
 
-
-
     script.
       const openModal = document.getElementById('openModal');
       const closeModal = document.getElementById('closeModal');
@@ -100,4 +96,14 @@ html
         if (e.target === modal) {
           modal.style.display = 'none';
         }
+      });
+
+    script.
+      const deleteButtons = document.querySelectorAll('.icon-btn.eliminar');
+      deleteButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          if (!confirm('¿Estás seguro de que deseas eliminar a esta mascota?')) {
+            e.preventDefault();
+          }
+        });
       });
