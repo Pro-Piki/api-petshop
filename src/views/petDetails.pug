@@ -1,9 +1,14 @@
 doctype html
-html
+html(lang="es")
   head
-    title Detalles del Cliente
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Detalles de la Mascota
     link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/productos.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
@@ -13,11 +18,29 @@ html
         a.logout-icon(href="/logout", title="Cerrar sesión")
           i.fas.fa-door-open
 
-    .container
-     h1 Detalles de la Mascota
+    .container.detalle-producto
+      h1 Detalles de la Mascota
+      hr.linea-decorativa
 
-     ul
-        li Nombre de la mascota: #{pet.name}
-        li Tipo de mascota: #{pet.type}
-        li Documento del Dueño: #{pet.ownerDni}
-        li Nombre del Dueño: #{pet.ownerName}
+      .contenido-y-botones
+        .contenido-detalle
+          .card
+            .card-body
+              h3.card-title Información de la Mascota
+              p.card-text
+                strong Nombre:
+                |  #{pet.name}
+              p.card-text
+                strong Tipo:
+                |  #{pet.type}
+              p.card-text
+                strong DNI del Dueño:
+                |  #{pet.ownerDni}
+              p.card-text
+                strong Nombre del Dueño:
+                |  #{pet.ownerName}
+
+        .botones-verticales
+          a.boton-general.boton-editar(href=`/pets/edit/${pet._id}`) Editar
+          a.boton-general.boton-eliminar(href=`/pets/delete/${pet._id}`) Eliminar
+          a.boton-general.boton-volver(href="/pets/register") Volver

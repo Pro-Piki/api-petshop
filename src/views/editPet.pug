@@ -1,12 +1,14 @@
 doctype html
-html
+html(lang="es")
   head
-    title Editar Cliente
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Editar Mascota
     link(rel="stylesheet", href="/styles/main.css")
-    link(rel="stylesheet", href="/styles/owner.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
+    link(rel="stylesheet", href="/styles/productos.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
@@ -14,28 +16,28 @@ html
         a.panel-icon(href="/panel")
           i.fas.fa-th
         a.logout-icon(href="/logout", title="Cerrar sesión")
-          i(class="fas fa-door-open")
+          i.fas.fa-door-open
 
     .container
-     h1 Editar Mascota
+      h1 Editar Mascota
+      hr.linea-decorativa
 
-     form(action=`/pets/edit/${pet._id}`, method="POST")
-      div
-        label(for="name") Nombre de la mascota:
-        input(type="text", name="name", required, value=pet.name)
+      form(method="POST", action=`/pets/edit/${pet._id}`)
+        .form-group
+          label(for="name") Nombre de la mascota:
+          input#name(type="text", name="name", required, value=pet.name)
 
-      div
-        label(for="type") Tipo de mascota:
-        input(type="text", name="type", required, value=pet.type)
+        .form-group
+          label(for="type") Tipo de mascota:
+          input#type(type="text", name="type", required, value=pet.type)
 
-      div
-        label(for="ownerDni") Documento del dueño:
-        input(type="text", name="ownerDni", required, value=pet.ownerDni)
+        .form-group
+          label(for="ownerDni") Documento del dueño:
+          input#ownerDni(type="text", name="ownerDni", required, value=pet.ownerDni)
 
-      div
-        label(for="ownerName") Nombre del dueño:
-        input(type="text", name="ownerName", required, value=pet.ownerName)
+        .form-group
+          label(for="ownerName") Nombre del dueño:
+          input#ownerName(type="text", name="ownerName", required, value=pet.ownerName)
 
-      button(type="submit") Actualizar Mascota
-
-    a.button(href="/pets/register") Cancelar
+        button.button(type="submit") Actualizar Mascota
+        a.button3(href="/pets/register") Cancelar
