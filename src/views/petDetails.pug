@@ -17,6 +17,7 @@ html(lang="es")
           i.fas.fa-th
         a.logout-icon(href="/logout", title="Cerrar sesión")
           i.fas.fa-door-open
+        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .container.detalle-producto
       h1 Detalles de la Mascota
@@ -44,3 +45,12 @@ html(lang="es")
           a.boton-general.boton-editar(href=`/pets/edit/${pet._id}`) Editar
           a.boton-general.boton-eliminar(href=`/pets/delete/${pet._id}`) Eliminar
           a.boton-general.boton-volver(href="/pets/register") Volver
+  script(src="/socket.io/socket.io.js")
+  script.
+    const socket = io();
+    socket.on('usuarios', (cantidad) => {
+      const contador = document.getElementById('contador');
+      if (contador) {
+        contador.textContent = 'Usuarios conectados: ' + cantidad;
+      }
+    });

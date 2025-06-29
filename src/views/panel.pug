@@ -10,6 +10,7 @@ html
       img(src="/images/logo.png", alt="Logo")
       a.logout-icon(href="/logout", title="Cerrar sesión")
         i(class="fas fa-door-open")
+      <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
 
     .panel-container
       h1 Bienvenido #{user.username} (Rol: #{user.role})
@@ -76,3 +77,12 @@ html
             h2 Búsqueda de mascotas
             p Buscar mascotas en adopción
             a(href="/mascotasAdopcion/busqueda") Ir al formulario
+  script(src="/socket.io/socket.io.js")
+  script.
+    const socket = io();
+    socket.on('usuarios', (cantidad) => {
+      const contador = document.getElementById('contador');
+      if (contador) {
+        contador.textContent = 'Usuarios conectados: ' + cantidad;
+      }
+    });
