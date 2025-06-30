@@ -54,7 +54,8 @@ const stockRoutes = require('./src/routes/stockRoutes');
 app.use('/productos', productRoutes);
 app.use('/stock', stockRoutes);
 
-
+const favicon = require('serve-favicon');
+app.use(favicon(path.join(__dirname, 'public', 'images', 'logoHuellita.ico')));
 
 io.on('connection', (socket) => {
   
