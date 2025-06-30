@@ -1,56 +1,62 @@
 doctype html
-html
+html(lang="es")
   head
-    title Registrar movimiento de Stock
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Registrar Movimiento de Stock
     link(rel="stylesheet", href="/styles/main.css")
+    link(rel="stylesheet", href="/styles/turnos.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
+  
   body
     .navbar
       img(src="/images/logo.png", alt="Logo")
       .nav-icons
         a.panel-icon(href="/panel")
           i.fas.fa-th
-        a.logout-icon(href="#", title="Cerrar sesión")
-          i(class="fas fa-door-open")
-        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
+        a.logout-icon(href="/logout", title="Cerrar sesión")
+          i.fas.fa-door-open
+        span#contador.text-black.ml-3(style="color: white;") Usuarios conectados: 0
 
     .container
-      .header-flex
-        h1 Registrar movimiento de Stock
-        a.button(href="/stock") Volver
+      h1 Registrar Movimiento de Stock
+      hr.linea-decorativa
 
-  form(method="POST", action="/stock")
-    .mb-3
-      label.form-label(for="tipo") Tipo de movimiento
-      select.form-select(name="tipo" required)
-        option(value="entrada") Entrada
-        option(value="salida") Salida
+      if errorMessage
+        .error= errorMessage
 
-    .mb-3
-      label.form-label(for="idProducto") Producto
-      select.form-select(name="idProducto" required)
-        each producto in productos
-          option(value=producto._id)= producto.nombre
+      form(method="POST", action="/stock")
+        .form-group
+          label(for="tipo") Tipo de movimiento:
+          select#tipo(name="tipo", required)
+            option(value="entrada") Entrada
+            option(value="salida") Salida
 
-    .mb-3
-      label.form-label(for="cantidad") Cantidad
-      input.form-control(type="number", name="cantidad", min="1", required)
+        .form-group
+          label(for="idProducto") Producto:
+          select#idProducto(name="idProducto", required)
+            each producto in productos
+              option(value=producto._id)= producto.nombre
 
-    .mb-3
-      label.form-label(for="proveedor") Proveedor
-      input.form-control(type="text", name="proveedor")
+        .form-group
+          label(for="cantidad") Cantidad:
+          input#cantidad(type="number", name="cantidad", min="1", required)
 
-    .mb-3
-      label.form-label(for="costoUnitario") Costo Unitario
-      input.form-control(type="number", name="costoUnitario", step="0.01")
+        .form-group
+          label(for="proveedor") Proveedor:
+          input#proveedor(type="text", name="proveedor")
 
-    .mb-3
-      label.form-label(for="motivo") Motivo
-      input.form-control(type="text", name="motivo")
+        .form-group
+          label(for="costoUnitario") Costo Unitario:
+          input#costoUnitario(type="number", name="costoUnitario", step="0.01")
 
-    button.btn.btn-primary(type="submit") Registrar
+        .form-group
+          label(for="motivo") Motivo:
+          input#motivo(type="text", name="motivo")
+
+        button.button(type="submit") Registrar
+        a.button3(href="/stock") Volver
+
     script(src="/socket.io/socket.io.js")
     script.
       const socket = io();

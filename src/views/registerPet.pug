@@ -14,7 +14,7 @@ html
           i.fas.fa-th
         a.logout-icon(href="/logout", title="Cerrar sesión")
           i.fas.fa-door-open
-        <span id="contador" class="text-black ml-3" style="color: white;">Usuarios conectados: 0</span>
+        span#contador.text-black.ml-3(style="color: white;") Usuarios conectados: 0
 
     .container
       .header-flex
@@ -47,37 +47,31 @@ html
                 td= pet.type
                 td= pet.ownerDni
                 td= pet.ownerName
-
                 td.actions
-                  a(href=`/pets/details/${pet._id}`, title="Detalles", class="icon-btn detalle")
+                  a.icon-btn.detalle(href=`/pets/details/${pet._id}`, title="Detalles")
                     i.fas.fa-search
-                  a(href=`/pets/edit/${pet._id}`, title="Editar", class="icon-btn editar")
+                  a.icon-btn.editar(href=`/pets/edit/${pet._id}`, title="Editar")
                     i.fas.fa-pen
-                  a(href=`/pets/delete/${pet._id}`, title="Eliminar", class="icon-btn eliminar")
+                  a.icon-btn.eliminar(href=`/pets/delete/${pet._id}`, title="Eliminar")
                     i.fas.fa-trash
 
     #modal.modal
       .modal-content
         span#closeModal.close ×
         h2 Nueva Mascota
-
         form(action="/pets/register", method="POST")
           div
             label(for="name") Nombre de la mascota:
             input(type="text", name="name", required)
-
           div
             label(for="type") Tipo de mascota:
             input(type="text", name="type", required)
-
           div
             label(for="ownerDni") Documento del dueño:
             input(type="text", name="ownerDni", required)
-
           div
             label(for="ownerName") Nombre del dueño:
             input(type="text", name="ownerName", required)
-
           button(type="submit") Registrar Mascota
 
     script.
@@ -108,12 +102,13 @@ html
           }
         });
       });
-  script(src="/socket.io/socket.io.js")
-  script.
-    const socket = io();
-    socket.on('usuarios', (cantidad) => {
-      const contador = document.getElementById('contador');
-      if (contador) {
-        contador.textContent = 'Usuarios conectados: ' + cantidad;
-      }
-    });
+
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io();
+      socket.on('usuarios', (cantidad) => {
+        const contador = document.getElementById('contador');
+        if (contador) {
+          contador.textContent = 'Usuarios conectados: ' + cantidad;
+        }
+      });

@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
-// Rutas M
+// Rutas Matayoshi
 const authRoutes = require('./src/routes/authRoutes');
 const petRoutes = require('./src/routes/petRoutes');
 const ownerRoutes = require('./src/routes/ownerRoutes');
@@ -37,13 +37,15 @@ app.use('/', authRoutes);
 app.use('/pets', petRoutes);
 app.use('/owners', ownerRoutes);
 
-// Rutas G
+// Rutas Ginart
 const turnosRoutes = require('./src/routes/turnos.routes');
 app.use('/turnos', turnosRoutes);
 const mascotasAdopcionRoutes = require('./src/routes/mascotasAdopcion.routes');
 app.use('/mascotasAdopcion', mascotasAdopcionRoutes);
+const agendaRoutes = require('./src/routes/agendaRoutes');
+app.use('/agenda', agendaRoutes);
 
-// Rutas V
+// Rutas Vizgarra
 const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
 app.use('/productos', productRoutes);
