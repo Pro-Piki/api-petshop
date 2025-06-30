@@ -12,6 +12,8 @@
 ### Asignación de Roles y Responsabilidades:
 
 - **GINART:** 
+
+
          * FrontEnd: Diseño y aplicación de estilos en el proyecto.  
 
          * BackEnd: Implementación de rutas, controladores y servicios para los módulos de Turnos, Adopciones y Agenda.  
@@ -22,6 +24,8 @@
          * Documentación.  
 
 - **MATAYOSHI:** 
+
+
          * BackEnd: Implementación de rutas, controladores y servicios para los módulos de Login, Registro de Usuario, Registro de Cliente, Registro de Mascotas.  
                     Migración de los módulos descriptos anteriormente a MongoDB Atlas.  
 
@@ -32,6 +36,8 @@
          * Documentación.  
 
 - **VIZGARRA:** 
+
+
          * BackEnd: Implementación de rutas, controladores y servicios para los módulos de Listado de productos y Movimiento de Stock.  
                     Migración de los módulos descriptos anteriormente a MongoDB Atlas.  
 
@@ -63,28 +69,28 @@
 
 ### Recursos utilizados para realizar el desarrollo del proyecto:
 
-    - Documentación oficial de Node js : [Node.js](https://nodejs.org/docs/latest/api/)
+    - [Node.js](https://nodejs.org/docs/latest/api/): Documentación oficial de Node js.
 
-    - Documentación oficial de Express : [Express](https://expressjs.com/)
+    - [Express](https://expressjs.com/): Documentación oficial de Express.
 
-    - Curso guía de Node js: [Node.js Udemy](https://www.udemy.com/course/nodejs-guia-desde-cero/)
+    - [Node.js Udemy](https://www.udemy.com/course/nodejs-guia-desde-cero/): Curso guía de Node js. 
 
-    - Documentación de PUG: [Pug](https://pugjs.org/api/getting-started.html)
+    - [Pug](https://pugjs.org/api/getting-started.html): Documentación de PUG.
 
-    - Módulo para cargar variables de entorno desde archivos .env: [dotenv](https://www.npmjs.com/package/dotenv)
+    - [dotenv](https://www.npmjs.com/package/dotenv): Módulo para cargar variables de entorno desde archivos .env. 
 
-    - Documentación JWT: [Doc JSON Web Token](https://www.npmjs.com/package/jsonwebtoken)
+    - [Doc JSON Web Token](https://www.npmjs.com/package/jsonwebtoken): Documentación JWT. 
 
-    - Tutorial de autenticación y autorización con JWT: [JSON Web Token](https://www.youtube.com/watch?v=lV7mxivGX_I) 
+    - [JSON Web Token](https://www.youtube.com/watch?v=lV7mxivGX_I): Tutorial de autenticación y autorización con JWT. 
 
-    - Tutorial encriptado de contraseña con bcrypt: [bcrypt](https://www.youtube.com/watch?v=AzA_LTDoFqY)
+    - [bcrypt](https://www.youtube.com/watch?v=AzA_LTDoFqY): Tutorial encriptado de contraseña con bcrypt. 
 
-    - Documentación de Websocket: [Node.js WebSocket](https://nodejs.org/en/learn/getting-started/websocket)
+    - [Node.js WebSocket](https://nodejs.org/en/learn/getting-started/websocket): Documentación de Websocket. 
 
-    - Documentación de Socket.IO: [Socket.IO](https://socket.io/docs/v4/)
+    - [Socket.IO](https://socket.io/docs/v4/): Documentación de Socket.IO.
 
-    - Tutorial de Websocket: [Web-Socket in Node](https://www.geeksforgeeks.org/web-socket-in-node-js/)
+    - [Web-Socket in Node](https://www.geeksforgeeks.org/web-socket-in-node-js/): Tutorial de Websocket.
 
-    - Base de datos en la nube: [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database)
-    
-    - Documentación de Mongoose: [Mongoose](https://mongoosejs.com/)
+    - [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database): Base de datos en la nube. 
+
+    - [Mongoose](https://mongoosejs.com/): Documentación de Mongoose. 
