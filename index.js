@@ -36,6 +36,9 @@ const ownerRoutes = require('./src/routes/ownerRoutes');
 app.use('/', authRoutes);
 app.use('/pets', petRoutes);
 app.use('/owners', ownerRoutes);
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
 
 // Rutas Ginart
 const turnosRoutes = require('./src/routes/turnos.routes');
@@ -50,6 +53,8 @@ const productRoutes = require('./src/routes/productRoutes');
 const stockRoutes = require('./src/routes/stockRoutes');
 app.use('/productos', productRoutes);
 app.use('/stock', stockRoutes);
+
+
 
 io.on('connection', (socket) => {
   
