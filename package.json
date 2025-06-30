@@ -1,7 +1,7 @@
 {
   "name": "petshop",
-  "version": "1.0.0",
-  "description": "PFI Backend 1° Entrega. Caso 3. Equipo Pink Code. Oficina 3. Integrantes: GINART Nadia, MATAYOSHI Yamila Yoshiko, VIZGARRA Bárbara Lorena.",
+  "version": "1.1.0",
+  "description": "PFI Backend 2° Entrega. Caso 3. Equipo Pink Code. Oficina 3. Integrantes: GINART Nadia, MATAYOSHI Yamila Yoshiko, VIZGARRA Bárbara Lorena.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
